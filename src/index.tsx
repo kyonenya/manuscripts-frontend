@@ -1,6 +1,12 @@
 import { h, render } from 'preact'; 
+import SimpleMDE from 'react-simplemde-editor';
+
+export const MDE = () => {
+  // @ts-ignore
+  return <SimpleMDE />;
+}
 
 render(
-  <h1>Hello World</h1>,
+  <MDE />,
   document.querySelector('#root')!
 );
