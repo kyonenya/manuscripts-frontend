@@ -1,12 +1,7 @@
 import { h, render } from 'preact'; 
-import SimpleMDE from 'react-simplemde-editor';
-
-export const MDE = () => {
-  // @ts-ignore
-  return <SimpleMDE />;
-}
+import { Editor } from './Editor';
 
 render(
-  <MDE />,
+  <Editor />,
   document.querySelector('#root')!
 );
