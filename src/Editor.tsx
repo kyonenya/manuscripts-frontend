@@ -1,17 +1,21 @@
 import { h } from 'preact';
 import { useState, useRef } from 'preact/hooks';
+import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 
 export const Editor = () => {
   const editorRef: any = useRef();
   const handleBold = () => {
-    editorRef.current.getInstance().exec('Bold');
+    editorRef.current.getInstance().exec('Italic');
   };
-    const handleGetText = () => {
+  const handleGetText = () => {
     const md = editorRef.current.getInstance().getMarkdown();
-    console.log(md);
+    alert(md);
+  };
+  const handleGetHtml = () => {
+    const html = editorRef.current.getInstance().getHtml();
+    alert(html);
   };
   return (
     <div>
@@ -26,6 +30,7 @@ export const Editor = () => {
       />
       <button onClick={handleBold}>make bold</button>
       <button onClick={handleGetText}>get text</button>
+      <button onClick={handleGetHtml}>get html</button>
     </div>
   );
 };
