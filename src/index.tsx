@@ -1,9 +1,7 @@
 import { h, render } from 'preact'; 
-import { Editor } from './Editor';
-import { Viewer } from './Viewer';
+import { App } from './App';
 
 render(
-//  <Editor />,
-  <Viewer />,
+  <App />,
   document.querySelector('#root')!
 );
