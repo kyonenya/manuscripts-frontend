@@ -1,5 +1,6 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
+import { JSXInternal } from 'preact/src/jsx';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
@@ -20,30 +21,43 @@ export const Editor = ({ initEntry, uuid }: {
 
   const [entry, setEntry] = useState({
     text: '',
-    tags: [''],
+    tagcsv: '',
     starred: false,
     created_at: '',
     modified_at: '',
   });
+  const [tagcsv, setTagCsv] = useState('');
 
   useEffect(() => {
     editorRef.current.getInstance().setMarkdown(initEntry.text);
     setEntry({
       text: initEntry.text,
-      tags: initEntry.tags,
+      tagcsv: initEntry.tags.join(','),
       starred: initEntry.starred,
       created_at: initEntry.created_at,
       modified_at: initEntry.modified_at,
     });
+    setTagCsv(initEntry.tags.join(','));
   }, [initEntry]);
 
   console.log(entry);
+  
+  const handleTagsChange = (e: JSXInternal.TargetedEvent) => {
+    const inputElement = e.target as HTMLInputElement;
+    setEntry((prevEntry) => {
+      return {
+        ...prevEntry,
+        tags: inputElement.value,
+      };
+    });
+    setTagCsv(inputElement.value);
+  };
 
   const handleUpdate = () => {
     const text = editorRef.current.getInstance().getMarkdown();
     const entry2 = {
       text,
-//      tags,
+      tags: entry.tagcsv.split(','),
       uuid,
       starred: true,
     };
@@ -69,7 +83,7 @@ export const Editor = ({ initEntry, uuid }: {
         ref={editorRef}
         usageStatistics={false}
       />
-      <input type="text" placeholder="タグ"></input>
+      <input type="text" placeholder="タグ" onChange={handleTagsChange} value={tagcsv}></input>
       <button onClick={handleUpdate}>Update</button>
     </Fragment>
   );
