@@ -1,5 +1,5 @@
-import { h } from 'preact';
-import { useState, useEffect, useRef } from 'preact/hooks';
+import { h, Fragment } from 'preact';
+import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
@@ -9,18 +9,22 @@ export const Editor = ({ entry, uuid }: {
   uuid: string,
 }) => {
   const editorRef: any = useRef();
+  const tagsRef: Ref<HTMLInputElement> = useRef();
+
   useEffect(() => {
     editorRef.current.getInstance().setMarkdown(entry.text);
+    tagsRef.current.value = entry.tags;
   }, [entry]);
+
   const handleUpdate = () => {
     const text = editorRef.current.getInstance().getMarkdown();
+    const tags = tagsRef.current.value.split(',');
     const entry2 = {
       text,
-      tags: ['更新されたタグ'],
+      tags,
       uuid,
       starred: true,
     };
-    console.log(entry2);
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
       method: 'PUT',
       body: JSON.stringify(entry2),
@@ -33,7 +37,7 @@ export const Editor = ({ entry, uuid }: {
       .catch(err => console.error(err));
   };
   return (
-    <div>
+    <Fragment>
       <ToastUIEditor
         initialValue="hello react editor world!"
         previewStyle="tab"
@@ -43,7 +47,8 @@ export const Editor = ({ entry, uuid }: {
         ref={editorRef}
         usageStatistics={false}
       />
+      <input type="text" ref={tagsRef} placeholder="タグ"></input>
       <button onClick={handleUpdate}>Update</button>
-    </div>
+    </Fragment>
   );
 };
