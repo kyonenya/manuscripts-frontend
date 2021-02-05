@@ -2,54 +2,25 @@ import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
+import { entrable } from './types';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
-
-type entrable = {
-  text: string,
-  tags: string[],
-  starred: boolean,
-  created_at: string,
-  modified_at: string,
-}
 
 export const Editor = ({ initEntry, uuid }: {
   initEntry: entrable,
   uuid: string,
 }) => {
-  const editorRef: any = useRef();
-
-  const [entry, setEntry] = useState({
-    text: '',
-    tagcsv: '',
-    starred: false,
-    created_at: '',
-    modified_at: '',
-  });
   const [tagcsv, setTagCsv] = useState('');
+
+  const editorRef: Ref<ToastUIEditor> = useRef();
 
   useEffect(() => {
     editorRef.current.getInstance().setMarkdown(initEntry.text);
-    setEntry({
-      text: initEntry.text,
-      tagcsv: initEntry.tags.join(','),
-      starred: initEntry.starred,
-      created_at: initEntry.created_at,
-      modified_at: initEntry.modified_at,
-    });
     setTagCsv(initEntry.tags.join(','));
   }, [initEntry]);
 
-  console.log(entry);
-  
   const handleTagsChange = (e: JSXInternal.TargetedEvent) => {
     const inputElement = e.target as HTMLInputElement;
-    setEntry((prevEntry) => {
-      return {
-        ...prevEntry,
-        tags: inputElement.value,
-      };
-    });
     setTagCsv(inputElement.value);
   };
 
@@ -57,7 +28,7 @@ export const Editor = ({ initEntry, uuid }: {
     const text = editorRef.current.getInstance().getMarkdown();
     const entry2 = {
       text,
-      tags: entry.tagcsv.split(','),
+      tags: tagcsv.split(','),
       uuid,
       starred: true,
     };
