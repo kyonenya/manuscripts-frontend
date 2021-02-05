@@ -5,6 +5,7 @@ import { Viewer } from './Viewer';
 
 export const Entry = () => {
   const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
+  const isEditMode = true;
 
   const [entry, setEntry] = useState({});
   useEffect(() => {
@@ -13,8 +14,8 @@ export const Entry = () => {
       .then(entry => setEntry(entry));
   }, []);
   return (
-    <Viewer
-      entry={entry}
-    />
+    isEditMode
+      ? <Editor entry={entry} uuid={uuid} />
+      : <Viewer entry={entry} uuid={uuid} />
   );
 };

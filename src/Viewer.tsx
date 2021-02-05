@@ -1,10 +1,12 @@
 import { h } from 'preact';
 import { useState, useEffect, useRef } from 'preact/hooks';
 import { Viewer as ToastUIViewer } from '@toast-ui/react-editor';
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import './css/toastui-editor-viewer.css';
 
-export const Viewer = ({ entry }: { entry: any }) => {
+export const Viewer = ({ entry, uuid }: {
+  entry: any,
+  uuid: string,
+}) => {
   const viewerRef: any = useRef();
   useEffect(() => {
     viewerRef.current.getInstance().setMarkdown(entry.text);

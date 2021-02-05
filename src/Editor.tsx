@@ -1,21 +1,36 @@
 import { h } from 'preact';
-import { useState, useRef } from 'preact/hooks';
+import { useState, useEffect, useRef } from 'preact/hooks';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import './css/codemirror.css';
+import './css/toastui-editor-only.css';
 
-export const Editor = () => {
+export const Editor = ({ entry, uuid }: {
+  entry: any,
+  uuid: string,
+}) => {
   const editorRef: any = useRef();
-  const handleBold = () => {
-    editorRef.current.getInstance().exec('Italic');
-  };
-  const handleGetText = () => {
-    const md = editorRef.current.getInstance().getMarkdown();
-    alert(md);
-  };
-  const handleGetHtml = () => {
-    const html = editorRef.current.getInstance().getHtml();
-    alert(html);
+  useEffect(() => {
+    editorRef.current.getInstance().setMarkdown(entry.text);
+  }, [entry]);
+  const handleUpdate = () => {
+    const text = editorRef.current.getInstance().getMarkdown();
+    const entry2 = {
+      text,
+      tags: ['更新されたタグ'],
+      uuid,
+      starred: true,
+    };
+    console.log(entry2);
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
+      method: 'PUT',
+      body: JSON.stringify(entry2),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
   };
   return (
     <div>
@@ -28,9 +43,7 @@ export const Editor = () => {
         ref={editorRef}
         usageStatistics={false}
       />
-      <button onClick={handleBold}>make bold</button>
-      <button onClick={handleGetText}>get text</button>
-      <button onClick={handleGetHtml}>get html</button>
+      <button onClick={handleUpdate}>Update</button>
     </div>
   );
 };
