@@ -4,17 +4,19 @@ import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
 
-export const Editor = ({ entry, uuid }: {
-  entry: any,
+export const Editor = ({ initEntry, uuid }: {
+  initEntry: any,
   uuid: string,
 }) => {
   const editorRef: any = useRef();
   const tagsRef: Ref<HTMLInputElement> = useRef();
 
+  const [entry, setEntry] = useState({});
+
   useEffect(() => {
-    editorRef.current.getInstance().setMarkdown(entry.text);
-    tagsRef.current.value = entry.tags;
-  }, [entry]);
+    editorRef.current.getInstance().setMarkdown(initEntry.text);
+    tagsRef.current.value = initEntry.tags;
+  }, [initEntry]);
 
   const handleUpdate = () => {
     const text = editorRef.current.getInstance().getMarkdown();

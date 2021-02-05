@@ -7,15 +7,15 @@ export const Entry = () => {
   const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
   const isEditMode = true;
 
-  const [entry, setEntry] = useState({});
+  const [initEntry, setInitEntry] = useState({});
   useEffect(() => {
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`)
       .then(response => response.json())
-      .then(entry => setEntry(entry));
+      .then(entry => setInitEntry(entry));
   }, []);
   return (
     isEditMode
-      ? <Editor entry={entry} uuid={uuid} />
-      : <Viewer entry={entry} uuid={uuid} />
+      ? <Editor initEntry={initEntry} uuid={uuid} />
+      : <Viewer initEntry={initEntry} uuid={uuid} />
   );
 };
