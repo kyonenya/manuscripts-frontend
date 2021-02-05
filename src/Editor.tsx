@@ -4,26 +4,46 @@ import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
 
+type entrable = {
+  text: string,
+  tags: string[],
+  starred: boolean,
+  created_at: string,
+  modified_at: string,
+}
+
 export const Editor = ({ initEntry, uuid }: {
-  initEntry: any,
+  initEntry: entrable,
   uuid: string,
 }) => {
   const editorRef: any = useRef();
-  const tagsRef: Ref<HTMLInputElement> = useRef();
 
-  const [entry, setEntry] = useState({});
+  const [entry, setEntry] = useState({
+    text: '',
+    tags: [''],
+    starred: false,
+    created_at: '',
+    modified_at: '',
+  });
 
   useEffect(() => {
     editorRef.current.getInstance().setMarkdown(initEntry.text);
-    tagsRef.current.value = initEntry.tags;
+    setEntry({
+      text: initEntry.text,
+      tags: initEntry.tags,
+      starred: initEntry.starred,
+      created_at: initEntry.created_at,
+      modified_at: initEntry.modified_at,
+    });
   }, [initEntry]);
+
+  console.log(entry);
 
   const handleUpdate = () => {
     const text = editorRef.current.getInstance().getMarkdown();
-    const tags = tagsRef.current.value.split(',');
     const entry2 = {
       text,
-      tags,
+//      tags,
       uuid,
       starred: true,
     };
@@ -49,7 +69,7 @@ export const Editor = ({ initEntry, uuid }: {
         ref={editorRef}
         usageStatistics={false}
       />
-      <input type="text" ref={tagsRef} placeholder="タグ"></input>
+      <input type="text" placeholder="タグ"></input>
       <button onClick={handleUpdate}>Update</button>
     </Fragment>
   );

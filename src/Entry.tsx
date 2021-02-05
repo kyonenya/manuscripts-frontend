@@ -7,7 +7,14 @@ export const Entry = () => {
   const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
   const isEditMode = true;
 
-  const [initEntry, setInitEntry] = useState({});
+  const [initEntry, setInitEntry] = useState({
+    text: '',
+    tags: [''],
+    starred: false,
+    created_at: '',
+    modified_at: '',
+  });
+
   useEffect(() => {
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`)
       .then(response => response.json())
