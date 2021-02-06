@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
+import dayjs from 'dayjs';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import { entrable } from './types';
 import './css/codemirror.css';
@@ -45,6 +46,11 @@ export const Editor = ({ initEntry, uuid }: {
   };
   return (
     <Fragment>
+      <header class="bl_text_header">
+        <time class="bl_text_date">
+          {dayjs(initEntry.created_at).format('YYYY-MM-DD HH:mm')}
+        </time>
+      </header>
       <ToastUIEditor
         initialValue="hello react editor world!"
         previewStyle="tab"
@@ -54,7 +60,7 @@ export const Editor = ({ initEntry, uuid }: {
         ref={editorRef}
         usageStatistics={false}
       />
-      <input type="text" placeholder="タグ" onChange={handleTagsChange} value={tagcsv}></input>
+      <input type="text" class="bl_editor_title" placeholder="タグ" onChange={handleTagsChange} value={tagcsv}></input>
       <button onClick={handleUpdate}>Update</button>
     </Fragment>
   );
