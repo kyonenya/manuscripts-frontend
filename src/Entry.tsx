@@ -7,6 +7,8 @@ import { entrable } from './types';
 export const Entry = () => {
   const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
   const isEditMode = true;
+//  const isNew = true;
+  const isNew = false;
 
   const [initEntry, setInitEntry] = useState<entrable>({
     text: '',
@@ -23,7 +25,7 @@ export const Entry = () => {
   }, []);
   return (
     isEditMode
-      ? <Editor initEntry={initEntry} uuid={uuid} />
+      ? <Editor initEntry={initEntry} isNew={isNew} uuid={uuid} />
       : <Viewer initEntry={initEntry} uuid={uuid} />
   );
 };

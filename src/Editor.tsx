@@ -6,9 +6,10 @@ import { entrable } from './types';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
 
-export const Editor = ({ initEntry, uuid }: {
+export const Editor = ({ initEntry, uuid, isNew }: {
   initEntry: entrable,
   uuid: string,
+  isNew: boolean,
 }) => {
   const [tagcsv, setTagCsv] = useState('');
 
@@ -28,12 +29,14 @@ export const Editor = ({ initEntry, uuid }: {
     const text = editorRef.current.getInstance().getMarkdown();
     const entry2 = {
       text,
-      tags: tagcsv.split(','),
+//      tags: tagcsv.split(','),
+      tags: ['dummyTag1', 'dummyTag2'],
       uuid,
-      starred: true,
+      starred: false,
     };
+    console.log(entry2);
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
-      method: 'PUT',
+      method: isNew ? 'POST' : 'PUT',
       body: JSON.stringify(entry2),
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
