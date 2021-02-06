@@ -21,9 +21,13 @@ export const Entry = () => {
       .then(response => response.json())
       .then(entry => setInitEntry(entry));
   }, []);
-  return (
-    isEditMode
-      ? <Editor initEntry={initEntry} uuid={uuid} />
-      : <Viewer initEntry={initEntry} uuid={uuid} />
+  return (    
+  <section class="ly_cont">
+    {
+      isEditMode
+        ? <Editor initEntry={initEntry} uuid={uuid} />
+        : <Viewer initEntry={initEntry} uuid={uuid} />
+    }
+    </section>
   );
 };
