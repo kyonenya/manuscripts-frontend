@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useState, useEffect } from 'preact/hooks'; 
+import { useState, useEffect } from 'preact/hooks';
 import { v4 as uuidv4 } from 'uuid';
 import { Editor } from './Editor';
 import { Viewer } from './Viewer';
@@ -8,8 +8,8 @@ import { entrable } from './types';
 export const Entry = () => {
   const isEditMode = true;
 //  const isEditMode = false;
-  const isNew = true;
-//  const isNew = false;
+//  const isNew = true;
+  const isNew = false;
   const uuid = isNew
     ? uuidv4().replace(/-/g, '')
     : '7bd2954f3a5c41f09e440e1f9e373f13';
