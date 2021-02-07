@@ -4,7 +4,7 @@ import { PageList } from './PageList';
 
 export const App = () => {
   return (
-    <PageList />
-//    <AllEntries />
+//    <PageList />
+    <Article />
   );
 }

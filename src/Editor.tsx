@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 import dayjs from 'dayjs';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
+import { EditorMenu } from './EditorMenu';
 import { entrable } from './types';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
@@ -49,6 +50,7 @@ export const Editor = ({ initArticle, uuid, isNew }: {
   };
   return (
     <Fragment>
+      <EditorMenu />
       <header class="bl_text_header">
         <time class="bl_text_date">
           {dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')}
