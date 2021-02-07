@@ -6,8 +6,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
 
-export const AllEntries = () => {
-  const entry = {
+export const PageList = () => {
+  const article = {
     text: '本文',
     tags: ['tag1'],
     starred: false,
@@ -20,17 +20,17 @@ export const AllEntries = () => {
         <a href="">
           <header class="bl_posts_header">
             <time class="bl_posts_date">
-              {dayjs(entry.created_at).format('YYYY-MM-DD')}
+              {dayjs(article.created_at).format('YYYY-MM-DD')}
             </time>
           </header>
           <div class="bl_posts_summary">
             <p>
-              {entry.text.substr(0, 125)}
+              {article.text.substr(0, 125)}
             </p>
           </div>
         </a>
         <footer class="bl_posts_footer">
-          <span class="bl_posts_dateago">{dayjs(entry.created_at).fromNow()}</span>
+          <span class="bl_posts_dateago">{dayjs(article.created_at).fromNow()}</span>
         </footer>
       </li>
     </ul>

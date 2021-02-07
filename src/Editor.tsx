@@ -7,8 +7,8 @@ import { entrable } from './types';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
 
-export const Editor = ({ initEntry, uuid, isNew }: {
-  initEntry: entrable,
+export const Editor = ({ initArticle, uuid, isNew }: {
+  initArticle: entrable,
   uuid: string,
   isNew: boolean,
 }) => {
@@ -17,9 +17,9 @@ export const Editor = ({ initEntry, uuid, isNew }: {
   const editorRef: Ref<ToastUIEditor> = useRef();
 
   useEffect(() => {
-    editorRef.current.getInstance().setMarkdown(initEntry.text);
-    setTagCsv(initEntry.tags.join(','));
-  }, [initEntry]);
+    editorRef.current.getInstance().setMarkdown(initArticle.text);
+    setTagCsv(initArticle.tags.join(','));
+  }, [initArticle]);
 
   const handleTagsChange = (e: JSXInternal.TargetedEvent) => {
     const inputElement = e.target as HTMLInputElement;
@@ -28,17 +28,17 @@ export const Editor = ({ initEntry, uuid, isNew }: {
 
   const handleUpdate = () => {
     const text = editorRef.current.getInstance().getMarkdown();
-    const entry2 = {
+    const article2 = {
       text,
 //      tags: tagcsv.split(','),
       tags: ['dummyTag1', 'dummyTag2'],
       uuid,
       starred: false,
     };
-    console.log(entry2);
+    console.log(article2);
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
       method: isNew ? 'POST' : 'PUT',
-      body: JSON.stringify(entry2),
+      body: JSON.stringify(article2),
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
       },
@@ -51,7 +51,7 @@ export const Editor = ({ initEntry, uuid, isNew }: {
     <Fragment>
       <header class="bl_text_header">
         <time class="bl_text_date">
-          {dayjs(initEntry.created_at).format('YYYY-MM-DD HH:mm')}
+          {dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')}
         </time>
       </header>
       <ToastUIEditor

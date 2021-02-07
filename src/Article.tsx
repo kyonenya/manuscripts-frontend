@@ -5,7 +5,7 @@ import { Editor } from './Editor';
 import { Viewer } from './Viewer';
 import { entrable } from './types';
 
-export const Entry = () => {
+export const Article = () => {
   const isEditMode = true;
 //  const isEditMode = false;
 //  const isNew = true;
@@ -14,7 +14,7 @@ export const Entry = () => {
     ? uuidv4().replace(/-/g, '')
     : '7bd2954f3a5c41f09e440e1f9e373f13';
 
-  const [initEntry, setInitEntry] = useState<entrable>({
+  const [initArticle, setInitArticle] = useState<entrable>({
     text: '',
     tags: [''],
     starred: false,
@@ -25,14 +25,14 @@ export const Entry = () => {
   useEffect(() => {
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`)
       .then(response => response.json())
-      .then(entry => setInitEntry(entry));
+      .then(article => setInitArticle(article));
   }, []);
   return (    
   <section class="ly_cont">
     {
       isEditMode
-        ? <Editor initEntry={initEntry} uuid={uuid} isNew={isNew}/>
-        : <Viewer initEntry={initEntry} uuid={uuid} />
+        ? <Editor initArticle={initArticle} uuid={uuid} isNew={isNew}/>
+        : <Viewer initArticle={initArticle} uuid={uuid} />
     }
     </section>
   );

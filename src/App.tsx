@@ -1,10 +1,10 @@
 import { h } from 'preact';
-import { Entry } from './Entry';
-import { AllEntries } from './AllEntries';
+import { Article } from './Article';
+import { PageList } from './PageList';
 
 export const App = () => {
   return (
-//    <Entry />
-    <AllEntries />
+    <PageList />
+//    <AllEntries />
   );
 }

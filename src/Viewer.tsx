@@ -4,19 +4,19 @@ import { Viewer as ToastUIViewer } from '@toast-ui/react-editor';
 import './css/toastui-editor-viewer.css';
 import dayjs from 'dayjs';
 
-export const Viewer = ({ initEntry, uuid }: {
-  initEntry: any,
+export const Viewer = ({ initArticle, uuid }: {
+  initArticle: any,
   uuid: string,
 }) => {
   const viewerRef: any = useRef();
   useEffect(() => {
-    viewerRef.current.getInstance().setMarkdown(initEntry.text);
-  }, [initEntry]);
+    viewerRef.current.getInstance().setMarkdown(initArticle.text);
+  }, [initArticle]);
   return (
     <Fragment>
       <header class="bl_text_header">
         <time class="bl_text_date">
-          {dayjs(initEntry.created_at).format('YYYY-MM-DD HH:mm')}
+          {dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')}
         </time>
       </header>
       {/* <div class="bl_text"> */}
