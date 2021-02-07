@@ -17,21 +17,20 @@ export const Editor = ({ initArticle, uuid, isNew }: {
 
   useEffect(() => {
     editorRef.current.getInstance().setMarkdown(initArticle.text);
-    setTagCsv(initArticle.tags.join(','));
   }, [initArticle]);
 
   const handleUpdate = () => {
     const text = editorRef.current.getInstance().getMarkdown();
-    const article2 = {
+    const article = {
       text,
       tags: ['dummyTag1', 'dummyTag2'],
       uuid,
       starred: false,
     };
-    console.log(article2);
+    console.log(article);
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
       method: isNew ? 'POST' : 'PUT',
-      body: JSON.stringify(article2),
+      body: JSON.stringify(article),
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
       },
@@ -46,7 +45,7 @@ export const Editor = ({ initArticle, uuid, isNew }: {
       <ToastUIEditor
         initialValue=""
         previewStyle="tab"
-        height="600px"
+        height="90vh"
         initialEditType="markdown"
         useCommandShortcut={true}
         ref={editorRef}
