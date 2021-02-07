@@ -19,7 +19,7 @@ export const Editor = ({ initArticle, uuid, isNew }: {
     editorRef.current.getInstance().setMarkdown(initArticle.text);
   }, [initArticle]);
 
-  const handleUpdate = () => {
+  const handleSubmit = () => {
     const text = editorRef.current.getInstance().getMarkdown();
     const article = {
       text,
@@ -41,7 +41,10 @@ export const Editor = ({ initArticle, uuid, isNew }: {
   };
   return (
     <Fragment>
-      <EditorMenu createdAt={dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')} />
+      <EditorMenu
+        createdAt={dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')}
+        handleSubmit={handleSubmit}
+      />
       <ToastUIEditor
         initialValue=""
         previewStyle="tab"
@@ -51,7 +54,6 @@ export const Editor = ({ initArticle, uuid, isNew }: {
         ref={editorRef}
         usageStatistics={false}
       />
-      <button onClick={handleUpdate}>Update</button>
     </Fragment>
   );
 };
