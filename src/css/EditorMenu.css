@@ -16,17 +16,16 @@ nav ul {
   list-style-type: none;
   padding: 0px;
 }
-nav li {
+.bl_nav_button {
   width: 50px;
   text-align: center;
 }
-nav li:first-child{
+.bl_nav_date {
   margin-right: auto;
+  width: 200px;
+  color: gray;
 }
 nav a {
   display: block;
-  /*border-radius: 4px;*/
-  /*padding: 5px 5px;*/
-  /*color: white;*/
   text-decoration: none;
 }

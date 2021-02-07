@@ -13,8 +13,6 @@ export const Editor = ({ initArticle, uuid, isNew }: {
   uuid: string,
   isNew: boolean,
 }) => {
-  const [tagcsv, setTagCsv] = useState('');
-
   const editorRef: Ref<ToastUIEditor> = useRef();
 
   useEffect(() => {
@@ -22,16 +20,10 @@ export const Editor = ({ initArticle, uuid, isNew }: {
     setTagCsv(initArticle.tags.join(','));
   }, [initArticle]);
 
-  const handleTagsChange = (e: JSXInternal.TargetedEvent) => {
-    const inputElement = e.target as HTMLInputElement;
-    setTagCsv(inputElement.value);
-  };
-
   const handleUpdate = () => {
     const text = editorRef.current.getInstance().getMarkdown();
     const article2 = {
       text,
-//      tags: tagcsv.split(','),
       tags: ['dummyTag1', 'dummyTag2'],
       uuid,
       starred: false,
@@ -50,12 +42,7 @@ export const Editor = ({ initArticle, uuid, isNew }: {
   };
   return (
     <Fragment>
-      <EditorMenu />
-      <header class="bl_text_header">
-        <time class="bl_text_date">
-          {dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')}
-        </time>
-      </header>
+      <EditorMenu createdAt={dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')} />
       <ToastUIEditor
         initialValue=""
         previewStyle="tab"
@@ -65,7 +52,6 @@ export const Editor = ({ initArticle, uuid, isNew }: {
         ref={editorRef}
         usageStatistics={false}
       />
-      <input type="text" class="bl_editor_title" placeholder="タグ" onChange={handleTagsChange} value={tagcsv}></input>
       <button onClick={handleUpdate}>Update</button>
     </Fragment>
   );
