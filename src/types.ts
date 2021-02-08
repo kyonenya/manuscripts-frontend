@@ -1,4 +1,4 @@
-export type entrable = {
+export type articlable = {
   text: string,
   tags: string[],
   starred: boolean,

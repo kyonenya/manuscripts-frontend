@@ -3,7 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { v4 as uuidv4 } from 'uuid';
 import { Editor } from './Editor';
 import { Viewer } from './Viewer';
-import { entrable } from './types';
+import { articlable } from './types';
 
 export const Article = () => {
   const isEditMode = true;
@@ -14,7 +14,7 @@ export const Article = () => {
     ? uuidv4().replace(/-/g, '')
     : '7bd2954f3a5c41f09e440e1f9e373f13';
 
-  const [initArticle, setInitArticle] = useState<entrable>({
+  const [initArticle, setInitArticle] = useState<articlable>({
     text: '',
     tags: [''],
     starred: false,

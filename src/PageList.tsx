@@ -3,36 +3,49 @@ import { useState, useEffect } from 'preact/hooks';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { articlable } from './types';
 
 dayjs.extend(relativeTime);
 
+const PageListItem = (props: {
+  article: articlable,
+}) => {
+  return (
+    <li>
+      <a href="">
+        <header class="bl_posts_header">
+          <time class="bl_posts_date">
+            {dayjs(props.article.created_at).format('YYYY-MM-DD')}
+          </time>
+        </header>
+        <div class="bl_posts_summary">
+          <p>
+            {props.article.text.substr(0, 125)}
+          </p>
+        </div>
+      </a>
+      <footer class="bl_posts_footer">
+        <span class="bl_posts_dateago">{dayjs(props.article.created_at).fromNow()}</span>
+      </footer>
+    </li>
+  );
+}
+
 export const PageList = () => {
-  const article = {
-    text: '本文',
-    tags: ['tag1'],
-    starred: false,
-    created_at: '2021-02-06T12:58:03.479Z',
-    modified_at: '2021-02-06T12:58:03.479Z',
-  };
+  const limitNum = 5;
+
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`)
+      .then(response => response.json())
+      .then(articles => setArticles(articles));
+  }, []);
+  console.log(articles);
+
   return (
     <ul>
-      <li>
-        <a href="">
-          <header class="bl_posts_header">
-            <time class="bl_posts_date">
-              {dayjs(article.created_at).format('YYYY-MM-DD')}
-            </time>
-          </header>
-          <div class="bl_posts_summary">
-            <p>
-              {article.text.substr(0, 125)}
-            </p>
-          </div>
-        </a>
-        <footer class="bl_posts_footer">
-          <span class="bl_posts_dateago">{dayjs(article.created_at).fromNow()}</span>
-        </footer>
-      </li>
+      {articles.map(article => <PageListItem article={article} />)}
     </ul>
   );
 }

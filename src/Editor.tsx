@@ -4,12 +4,12 @@ import { JSXInternal } from 'preact/src/jsx';
 import dayjs from 'dayjs';
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor';
 import { EditorMenu } from './EditorMenu';
-import { entrable } from './types';
+import { articlable } from './types';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
 
 export const Editor = ({ initArticle, uuid, isNew }: {
-  initArticle: entrable,
+  initArticle: articlable,
   uuid: string,
   isNew: boolean,
 }) => {
