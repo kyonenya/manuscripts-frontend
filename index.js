@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('./webpack.dev.config.js');
 
-const rootDir = __dirname;
 const port = 3000;
 const middleware = webpackDevMiddleware(webpack(config), {
   publicPath: config.output.publicPath,
@@ -13,10 +12,11 @@ const middleware = webpackDevMiddleware(webpack(config), {
 const app = express();
 app
   .use(middleware)
-  .get('/', (req, res) => {
+  .use(express.static(__dirname))
+  .get('/*', (req, res) => {
+    // RewriteEngineOn
     res.sendFile(path.resolve(__dirname, 'index.html'));
   })
-  .use(express.static(rootDir))
   .listen(port, () => {
     console.log(`Launching app... http://localhost:${port}\n`);
   })
