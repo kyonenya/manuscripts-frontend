@@ -18,6 +18,7 @@ export const Article = () => {
     text: '',
     tags: [''],
     starred: false,
+    uuid: '',
     created_at: '',
     modified_at: '',
   });
