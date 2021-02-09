@@ -12,7 +12,7 @@ const PageListItem = (props: {
   article: articlable,
 }) => {
   return (
-    <li>
+    <li key={props.article.uuid}>
       <Link href={'/articles/' + props.article.uuid}>
         <header class="bl_posts_header">
           <time class="bl_posts_date">
