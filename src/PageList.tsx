@@ -32,21 +32,15 @@ const PageListItem = (props: {
   );
 }
 
-export const PageList = () => {
-  const limitNum = 5;
-
-  const [articles, setArticles] = useState([]);
-
-  useEffect(() => {
-    fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`)
-      .then(response => response.json())
-      .then(articles => setArticles(articles));
-  }, []);
-  console.log(articles);
+export const PageList = (props: {
+  articles: articlable[],
+}) => {
 
   return (
     <ul>
-      {articles.map(article => <PageListItem article={article} />)}
+      {props.articles.map(article => 
+        <PageListItem article={article} />
+      )}
     </ul>
   );
 }
