@@ -7,10 +7,11 @@ import { articlable } from './types';
 
 export const Article = (props: {
   initArticle: articlable|null,
+  uuid: string,
 }) => {
   const isEditMode = true;
 //  const isEditMode = false;
-    const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
+//    const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
 
 //  const isNew = true;
 //  const isNew = false;
@@ -28,16 +29,17 @@ export const Article = (props: {
   });
 
   useEffect(() => {
-    fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`)
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`)
       .then(response => response.json())
       .then(article => setInitArticle(article));
   }, []);
+
   return (    
   <section class="ly_cont">
     {
       isEditMode
-        ? <Editor initArticle={initArticle} uuid={uuid} /* isNew={isNew} *//>
-        : <Viewer initArticle={initArticle} uuid={uuid} />
+        ? <Editor initArticle={props.initArticle!} uuid={props.uuid} /* isNew={isNew} *//>
+        : <Viewer initArticle={props.initArticle!} uuid={props.uuid} />
     }
     </section>
   );

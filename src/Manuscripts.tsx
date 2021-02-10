@@ -18,7 +18,7 @@ export const Manuscripts = () => {
 
   return (
     uuid
-      ? <Article initArticle={articles.find(article => article.uuid === uuid) ?? null}/>
+      ? <Article initArticle={articles.find(article => article.uuid === uuid) ?? null} uuid={uuid} />
       : <PageList articles={articles} />
   );
 };
