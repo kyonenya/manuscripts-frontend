@@ -8,27 +8,27 @@ import { articlable } from './types';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
 
-export const Editor = ({ initArticle, uuid, /* isNew */ }: {
-  initArticle: articlable,
+export const Editor = (props: {
+  article: articlable,
   uuid: string,
   /* isNew: boolean, */
 }) => {
   const editorRef: Ref<ToastUIEditor> = useRef();
 
   useEffect(() => {
-    editorRef.current.getInstance().setMarkdown(initArticle.text);
-  }, [initArticle]);
+    editorRef.current.getInstance().setMarkdown(props.article.text);
+  }, [props.article]);
 
   const handleSubmit = () => {
     const text = editorRef.current.getInstance().getMarkdown();
     const article = {
       text,
       tags: ['dummyTag1', 'dummyTag2'],
-      uuid,
+      uuid: props.uuid,
       starred: false,
     };
     console.log(article);
-    fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
 //      method: isNew ? 'POST' : 'PUT',
       method: 'PUT',
       body: JSON.stringify(article),
@@ -43,7 +43,7 @@ export const Editor = ({ initArticle, uuid, /* isNew */ }: {
   return (
     <Fragment>
       <EditorMenu
-        createdAt={dayjs(initArticle.created_at).format('YYYY-MM-DD HH:mm')}
+        createdAt={dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')}
         handleSubmit={handleSubmit}
       />
       <ToastUIEditor
