@@ -21,7 +21,7 @@ export const Article = (props: {
   }, []);
 
   return (    
-  <section class="ly_cont">
+    <section class="ly_cont">
     {
       props.isEditMode
         ? <Editor article={article} uuid={props.uuid} /* isNew={isNew} *//>

@@ -12,7 +12,7 @@ const PageListItem = (props: {
   article: articlable,
 }) => {
   return (
-    <li key={props.article.uuid}>
+    <li class="bl_posts_item" key={props.article.uuid}>
       <Link href={'/?uuid=' + props.article.uuid}>
         <header class="bl_posts_header">
           <time class="bl_posts_date">
@@ -37,10 +37,12 @@ export const PageList = (props: {
   articles: articlable[],
 }) => {
   return (
-    <ul>
-      {props.articles.map(article => 
-        <PageListItem article={article} />
-      )}
-    </ul>
+    <section class="ly_cont">
+      <ul>
+        {props.articles.map(article => 
+          <PageListItem article={article} />
+        )}
+      </ul>
+    </section>
   );
 }
