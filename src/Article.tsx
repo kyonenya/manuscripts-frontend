@@ -11,17 +11,14 @@ export const Article = (props: {
 }) => {
   const isEditMode = true;
 //  const isEditMode = false;
-//    const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
-
 //  const isNew = true;
 //  const isNew = false;
-//  const uuid = isNew
-//    ? uuidv4().replace(/-/g, '')
-//    : '7bd2954f3a5c41f09e440e1f9e373f13';
 
+//uuidv4().replace(/-/g, '')
+//7bd2954f3a5c41f09e440e1f9e373f13
 //034392a0ef2f46e4842e249c9bf6dfc5
 
-  const [initArticle, setInitArticle] = useState<articlable>({
+  const [article, setArticle] = useState<articlable>({
     text: '',
     tags: [''],
     starred: false,
@@ -31,10 +28,10 @@ export const Article = (props: {
   });
 
   useEffect(() => {
-    if (props.initArticle) return setInitArticle(props.initArticle);
+    if (props.initArticle) return setArticle(props.initArticle);
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`)
       .then(response => response.json())
-      .then(article => setInitArticle(article));
+      .then(article => setArticle(article));
   }, []);
 
   const dummyArticle = {
@@ -50,8 +47,8 @@ export const Article = (props: {
   <section class="ly_cont">
     {
       isEditMode
-        ? <Editor initArticle={initArticle ?? dummyArticle} uuid={props.uuid} /* isNew={isNew} *//>
-        : <Viewer initArticle={initArticle ?? dummyArticle} uuid={props.uuid} />
+        ? <Editor initArticle={article ?? dummyArticle} uuid={props.uuid} /* isNew={isNew} *//>
+        : <Viewer article={article ?? dummyArticle} uuid={props.uuid} />
     }
     </section>
   );
