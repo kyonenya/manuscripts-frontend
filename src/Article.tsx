@@ -5,7 +5,9 @@ import { Editor } from './Editor';
 import { Viewer } from './Viewer';
 import { articlable } from './types';
 
-export const Article = () => {
+export const Article = (props: {
+  initArticle: articlable|null,
+}) => {
   const isEditMode = true;
 //  const isEditMode = false;
 //  const isNew = true;
@@ -13,7 +15,7 @@ export const Article = () => {
   const uuid = isNew
     ? uuidv4().replace(/-/g, '')
     : '7bd2954f3a5c41f09e440e1f9e373f13';
-
+  console.log(props.initArticle);
   const [initArticle, setInitArticle] = useState<articlable>({
     text: '',
     tags: [''],

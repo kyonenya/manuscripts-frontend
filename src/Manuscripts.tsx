@@ -3,10 +3,11 @@ import { useState, useEffect } from 'preact/hooks';
 import { useSearchParam } from 'react-use';
 import { Article } from './Article';
 import { PageList } from './PageList';
+import { articlable } from './types';
 
 export const Manuscripts = () => {
   const uuid = useSearchParam('uuid');
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<articlable[]>([]);
 
   useEffect(() => {
     const limitNum = 5;
@@ -17,7 +18,7 @@ export const Manuscripts = () => {
 
   return (
     uuid
-      ? <Article />
+      ? <Article initArticle={articles.find(article => article.uuid === uuid) ?? null}/>
       : <PageList articles={articles} />
   );
 };
