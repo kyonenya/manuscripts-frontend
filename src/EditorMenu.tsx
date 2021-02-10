@@ -7,6 +7,7 @@ import './css/EditorMenu.css';
 export const EditorMenu = (props: {
   createdAt: string,
   handleSubmit: () => void,
+  isLoading: boolean,
 }) => {
   return (
     <nav>
@@ -14,7 +15,9 @@ export const EditorMenu = (props: {
         <li class="bl_nav_date"><a href="">{props.createdAt}</a></li>
         <li class="bl_nav_button"><a href="">❤️</a></li>
         <li class="bl_nav_button"><a href="">🔖</a></li>
-        <li class="bl_nav_button" onClick={props.handleSubmit}>✅</li>
+        <li class="bl_nav_button" onClick={props.handleSubmit}>
+          { props.isLoading ? '⏳' : '✅'}
+        </li>
       </ul>
     </nav>
   );

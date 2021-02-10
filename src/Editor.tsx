@@ -13,6 +13,8 @@ export const Editor = (props: {
   uuid: string,
   /* isNew: boolean, */
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  
   const editorRef: Ref<ToastUIEditor> = useRef();
 
   useEffect(() => {
@@ -20,6 +22,8 @@ export const Editor = (props: {
   }, [props.article]);
 
   const handleSubmit = () => {
+    setIsLoading(true);
+
     const text = editorRef.current.getInstance().getMarkdown();
     const article = {
       text,
@@ -27,7 +31,6 @@ export const Editor = (props: {
       uuid: props.uuid,
       starred: false,
     };
-    console.log(article);
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
 //      method: isNew ? 'POST' : 'PUT',
       method: 'PUT',
@@ -37,7 +40,10 @@ export const Editor = (props: {
       },
     })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+        setIsLoading(false);
+      })
       .catch(err => console.error(err));
   };
   return (
@@ -45,6 +51,7 @@ export const Editor = (props: {
       <EditorMenu
         createdAt={dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')}
         handleSubmit={handleSubmit}
+        isLoading={isLoading}
       />
       <ToastUIEditor
         initialValue=""
