@@ -8,10 +8,10 @@ import { articlable } from './types';
 import './css/codemirror.css';
 import './css/toastui-editor-only.css';
 
-export const Editor = ({ initArticle, uuid, isNew }: {
+export const Editor = ({ initArticle, uuid, /* isNew */ }: {
   initArticle: articlable,
   uuid: string,
-  isNew: boolean,
+  /* isNew: boolean, */
 }) => {
   const editorRef: Ref<ToastUIEditor> = useRef();
 
@@ -29,7 +29,8 @@ export const Editor = ({ initArticle, uuid, isNew }: {
     };
     console.log(article);
     fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
-      method: isNew ? 'POST' : 'PUT',
+//      method: isNew ? 'POST' : 'PUT',
+      method: 'PUT',
       body: JSON.stringify(article),
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
