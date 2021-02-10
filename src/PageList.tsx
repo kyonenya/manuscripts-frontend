@@ -6,6 +6,7 @@ import 'dayjs/locale/ja';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { articlable } from './types';
 
+dayjs.locale('ja');
 dayjs.extend(relativeTime);
 
 const PageListItem = (props: {
@@ -38,7 +39,7 @@ export const PageList = (props: {
 }) => {
   return (
     <section class="ly_cont">
-      <ul>
+      <ul class="bl_posts">
         {props.articles.map(article => 
           <PageListItem article={article} />
         )}
