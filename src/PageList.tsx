@@ -27,6 +27,7 @@ const PageListItem = (props: {
       </Link>
       <footer class="bl_posts_footer">
         <span class="bl_posts_dateago">{dayjs(props.article.created_at).fromNow()}</span>
+        <Link href={'/?uuid=' + props.article.uuid + '&edit=1'}>Edit</Link>
       </footer>
     </li>
   );

@@ -8,11 +8,9 @@ import { articlable, emptyArticle } from './types';
 export const Article = (props: {
   initArticle: articlable|null,
   uuid: string,
+  isEditMode: boolean,
 }) => {
-  const isEditMode = true;
-//  const isEditMode = false;
 //  const isNew = true;
-
   const [article, setArticle] = useState<articlable>(emptyArticle);
 
   useEffect(() => {
@@ -25,7 +23,7 @@ export const Article = (props: {
   return (    
   <section class="ly_cont">
     {
-      isEditMode
+      props.isEditMode
         ? <Editor article={article} uuid={props.uuid} /* isNew={isNew} *//>
         : <Viewer article={article} uuid={props.uuid} />
     }
