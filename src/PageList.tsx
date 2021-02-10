@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { Link } from 'preact-router';
+import { Link } from 'wouter';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -13,7 +13,7 @@ const PageListItem = (props: {
 }) => {
   return (
     <li key={props.article.uuid}>
-      <Link href={'/articles/' + props.article.uuid}>
+      <Link href={'/?uuid=' + props.article.uuid}>
         <header class="bl_posts_header">
           <time class="bl_posts_date">
             {dayjs(props.article.created_at).format('YYYY-MM-DD')}
@@ -35,7 +35,6 @@ const PageListItem = (props: {
 export const PageList = (props: {
   articles: articlable[],
 }) => {
-
   return (
     <ul>
       {props.articles.map(article => 
