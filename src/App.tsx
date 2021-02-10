@@ -1,18 +1,12 @@
 import { h, Fragment } from 'preact';
-import { Router, Route, Link } from 'preact-router';
-import { Article } from './Article';
-import { PageList } from './PageList';
+import { useSearchParam } from 'react-use';
+import { Manuscripts } from './Manuscripts';
 
 export const App = () => {
+  const uuid = useSearchParam('uuid');
+  console.log(uuid);
+
   return (
-    <Fragment>
-      <Link href="/article">Article</Link>
-      <span> / </span>
-      <Link href="/pagelist">PageList</Link>
-      <Router>
-        <Route path="/article" component={Article}></Route>
-        <Route path="/pagelist" component={PageList}></Route>
-      </Router>
-    </Fragment>
+    <Manuscripts />
   );
-}
+};
