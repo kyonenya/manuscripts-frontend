@@ -38,12 +38,10 @@ export const PageList = (props: {
   articles: articlable[],
 }) => {
   return (
-    <section class="ly_cont">
-      <ul class="bl_posts">
-        {props.articles.map(article => 
-          <PageListItem article={article} />
-        )}
-      </ul>
-    </section>
+    <ul class="bl_posts">
+      {props.articles.map(article => 
+        <PageListItem article={article} />
+      )}
+    </ul>
   );
-}
+};

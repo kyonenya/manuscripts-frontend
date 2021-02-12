@@ -20,9 +20,7 @@ export const Article = (props: {
   }, []);
 
   return (    
-    <section class="ly_cont">
-      <Editor article={article} uuid={props.uuid} isEdit={props.isEdit} />
-    </section>
+    <Editor article={article} uuid={props.uuid} isEdit={props.isEdit} />
   );
 };
 

@@ -13,8 +13,8 @@ export const Editor = (props: {
   isEdit: boolean,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const editorRef: Ref<any> = useRef();
-//  const editorRef: Ref<EasyMDE> = useRef();
+//  const editorRef: Ref<any> = useRef();
+  const editorRef: Ref<EasyMDE> = useRef();
 //  error TS2576: Property 'togglePreview' is a static member of type 'EasyMDE'.
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const Editor = (props: {
         isLoading={isLoading}
       />
       <EasyMDEReact
-        getMdeInstance={(instance) => editorRef.current = instance}
+        getMdeInstance={(instance: EasyMDE) => editorRef.current = instance}
       />
     </Fragment>
   );
