@@ -12,7 +12,7 @@ const middleware = webpackDevMiddleware(webpack(config), {
 const app = express();
 app
   .use(middleware)
-  .use(express.static(__dirname))
+  .use(express.static(path.resolve(__dirname, 'public')))
   .get('/*', (req, res) => {
     // RewriteEngineOn
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));

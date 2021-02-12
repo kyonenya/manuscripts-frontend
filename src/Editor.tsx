@@ -13,12 +13,11 @@ export const Editor = (props: {
   isEdit: boolean,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-//  const editorRef: Ref<any> = useRef();
   const editorRef: Ref<EasyMDE> = useRef();
-//  error TS2576: Property 'togglePreview' is a static member of type 'EasyMDE'.
 
   useEffect(() => {
     editorRef.current.value(props.article.text);
+    // @ts-ignore
     if (!props.isEdit) editorRef.current.togglePreview();
   }, [props.article]);
 
