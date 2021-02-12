@@ -3,6 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { v4 as uuidv4 } from 'uuid';
 import { Editor } from './Editor';
 import { Viewer } from './Viewer';
+import { MDE } from './MDE';
 import { articlable, emptyArticle } from './types';
 
 export const Article = (props: {
@@ -24,7 +25,8 @@ export const Article = (props: {
     <section class="ly_cont">
     {
       props.isEditMode
-        ? <Editor article={article} uuid={props.uuid} /* isNew={isNew} *//>
+//        ? <Editor article={article} uuid={props.uuid} /* isNew={isNew} *//>
+        ? <MDE article={article} uuid={props.uuid} />
         : <Viewer article={article} uuid={props.uuid} />
     }
     </section>

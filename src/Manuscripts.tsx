@@ -6,9 +6,11 @@ import { PageList } from './PageList';
 import { articlable } from './types';
 
 export const Manuscripts = () => {
-  const uuid = useSearchParam('uuid');
+//  const uuid = useSearchParam('uuid');
   const isEditMode = !!useSearchParam('edit');
   const [articles, setArticles] = useState<articlable[]>([]);
+
+  const uuid = '7bd2954f3a5c41f09e440e1f9e373f13';
 
   useEffect(() => {
     const limitNum = 5;
@@ -20,10 +22,10 @@ export const Manuscripts = () => {
   return (
     uuid
       ? <Article
-          initArticle={articles.find(article => article.uuid === uuid) ?? null}
-          uuid={uuid}
-          isEditMode={isEditMode}
-        />
-      : <PageList articles={articles} />
+        initArticle={articles.find(article => article.uuid === uuid) ?? null}
+        uuid={uuid}
+        isEditMode={isEditMode}
+      />
+     : <PageList articles={articles} />
   );
 };
