@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import EasyMDEReact from 'react-simplemde-editor';
+import EasyMDE from 'easymde';
 import "easymde/dist/easymde.min.css";
 import dayjs from 'dayjs';
 import { HeaderMenu } from './HeaderMenu';
@@ -13,6 +14,8 @@ export const Editor = (props: {
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const editorRef: Ref<any> = useRef();
+//  const editorRef: Ref<EasyMDE> = useRef();
+//  error TS2576: Property 'togglePreview' is a static member of type 'EasyMDE'.
 
   useEffect(() => {
     editorRef.current.value(props.article.text);
