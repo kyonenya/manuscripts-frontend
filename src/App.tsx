@@ -3,14 +3,17 @@ import { Manuscripts } from './Manuscripts';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 91vw;
   margin: 0 auto;
   @media screen and (max-width: 559px) {
-   margin-bottom: 1.5em;
+    width: 91vw; 
+    margin-bottom: 1.5em;
   };
   @media screen and (min-width: 560px) {
     width: 85vw;
-    margin: 0 auto;
+  };
+  @media screen and (min-width: 960px) {
+    width: 77vw;
+    max-width: 900px;
   };
 `;
 
