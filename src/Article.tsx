@@ -2,14 +2,12 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { v4 as uuidv4 } from 'uuid';
 import { Editor } from './Editor';
-import { Viewer } from './Viewer';
-import { MDE } from './MDE';
 import { articlable, emptyArticle } from './types';
 
 export const Article = (props: {
   initArticle: articlable|null,
   uuid: string,
-  isEditMode: boolean,
+  isEdit: boolean,
 }) => {
 //  const isNew = true;
   const [article, setArticle] = useState<articlable>(emptyArticle);
@@ -23,12 +21,7 @@ export const Article = (props: {
 
   return (    
     <section class="ly_cont">
-    {
-      props.isEditMode
-//        ? <Editor article={article} uuid={props.uuid} /* isNew={isNew} *//>
-        ? <MDE article={article} uuid={props.uuid} />
-        : <Viewer article={article} uuid={props.uuid} />
-    }
+      <Editor article={article} uuid={props.uuid} isEdit={props.isEdit} />
     </section>
   );
 };

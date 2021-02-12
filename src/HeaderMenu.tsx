@@ -4,7 +4,7 @@ import { JSXInternal } from 'preact/src/jsx';
 import { articlable } from './types';
 import './css/EditorMenu.css';
 
-export const EditorMenu = (props: {
+export const HeaderMenu = (props: {
   createdAt: string,
   handleSubmit: () => void,
   isLoading: boolean,
