@@ -13,9 +13,12 @@ export const MDE = (props: {
     setText(props.article.text);
   }, [props.article]);
   console.log(text);
+
   return (
     <EasyMDEReact
       value={text}
+      //@ts-ignore
+      getMdeInstance={(instance) => instance.togglePreview()}
       onChange={setText}
     />
   );
