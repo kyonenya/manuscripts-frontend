@@ -2,6 +2,8 @@ import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import EasyMDEReact from 'react-simplemde-editor';
 import "easymde/dist/easymde.min.css";
+import dayjs from 'dayjs';
+import { HeaderMenu } from './HeaderMenu';
 import { articlable } from './types';
 
 export const Editor = (props: {
@@ -9,23 +11,49 @@ export const Editor = (props: {
   uuid: string,
   isEdit: boolean,
 }) => {
-  const [text, setText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const editorRef: Ref<any> = useRef();
 
   useEffect(() => {
-    setText(props.article.text);
+    editorRef.current.value(props.article.text);
     if (!props.isEdit) editorRef.current.togglePreview();
   }, [props.article]);
 
+  const handleSubmit = () => {
+    setIsLoading(true);
+    const text = editorRef.current.value();
+    const article = {
+      text,
+      tags: ['dummyTag1', 'dummyTag2'],
+      uuid: props.uuid,
+      starred: false,
+    };
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
+//      method: isNew ? 'POST' : 'PUT',
+      method: 'PUT',
+      body: JSON.stringify(article),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setIsLoading(false);
+      })
+      .catch(err => console.error(err));
+  };
+
   return (
     <Fragment>
-      <EasyMDEReact
-//        value={text}
-        getMdeInstance={(instance) => editorRef.current = instance}
-        onChange={setText}
+      <HeaderMenu
+        createdAt={dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')}
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
       />
-      <button onClick={() => console.log(editorRef.current.value())}>Value</button>
-      <button onClick={() => console.log(editorRef.current.value('Setted Value'))}>SetValue</button>
+      <EasyMDEReact
+        getMdeInstance={(instance) => editorRef.current = instance}
+      />
     </Fragment>
   );
 };
