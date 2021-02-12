@@ -3,19 +3,15 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('./webpack.dev.config.js');
+const middleware = webpackDevMiddleware(webpack(config));
 
 const port = 3000;
-const middleware = webpackDevMiddleware(webpack(config), {
-  publicPath: config.output.publicPath,
-});
-
 const app = express();
 app
   .use(middleware)
-  .use(express.static(path.resolve(__dirname, 'public')))
+  .use(express.static(path.resolve(__dirname, 'build')))
   .get('/*', (req, res) => {
-    // RewriteEngineOn
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html')); // RewriteEngineOn
   })
   .listen(port, () => {
     console.log(`Launching app... http://localhost:${port}\n`);
