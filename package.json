@@ -1,12 +1,13 @@
 {
   "name": "manuscripts-gh-pages",
   "version": "1.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/kyonenya/manuscripts-frontend",
   "scripts": {
     "build": "webpack",
     "tsc": "tsc -w --noEmit"
   },
   "dependencies": {
-    "@toast-ui/react-editor": "^2.5.1",
     "css-loader": "^5.0.1",
     "dayjs": "^1.10.4",
     "preact": "^10.5.12",
