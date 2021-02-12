@@ -15,7 +15,7 @@ app
   .use(express.static(__dirname))
   .get('/*', (req, res) => {
     // RewriteEngineOn
-    res.sendFile(path.resolve(__dirname, 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
   })
   .listen(port, () => {
     console.log(`Launching app... http://localhost:${port}\n`);
