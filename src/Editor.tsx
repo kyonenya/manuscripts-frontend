@@ -16,9 +16,12 @@ export const Editor = (props: {
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
-    editorRef.current.value(props.article.text);
     // @ts-ignore
     if (!props.isEdit) editorRef.current.togglePreview();
+  }, []);
+
+  useEffect(() => {
+    editorRef.current.value(props.article.text);
   }, [props.article]);
 
   const handleSubmit = () => {
