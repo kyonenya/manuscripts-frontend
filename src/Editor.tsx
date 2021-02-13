@@ -1,5 +1,6 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
+import styled from 'styled-components';
 import EasyMDEReact from 'react-simplemde-editor';
 //import EasyMDE from 'easymde';
 import "./css/easymde.css";
@@ -57,9 +58,15 @@ export const Editor = (props: {
         handleSubmit={handleSubmit}
         isLoading={isLoading}
       />
-      <EasyMDEReact
-        getMdeInstance={(instance: EasyMDE) => editorRef.current = instance}
-      />
+      <EditorWrapper>
+        <EasyMDEReact
+          getMdeInstance={(instance: EasyMDE) => editorRef.current = instance}
+        />
+      </EditorWrapper>
     </Fragment>
   );
 };
+
+const EditorWrapper = styled.div`
+  font-family: sans-serif;
+`;
