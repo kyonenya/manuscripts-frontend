@@ -18,10 +18,19 @@ const StyledListItem = styled.li`
 `;
 const Header = styled.header`
   color: hsl(0, 0%, 38%) /* var(--monochrome-dark) */;
+  margin-bottom: 0.4em;
 `;
 const Footer = styled.footer`
-  margin-top: 0.2em;
   color: hsl(0, 0%, 38%);
+  margin-top: 0.4em;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+const Summary = styled.div`
+  text-align: justify;
+  line-height: 1.5;
 `;
 
 const PageListItem = (props: {
@@ -29,18 +38,16 @@ const PageListItem = (props: {
 }) => {
   return (
     <StyledListItem key={props.article.uuid}>
-      <Link href={'/?uuid=' + props.article.uuid}>
+      <StyledLink href={'/?uuid=' + props.article.uuid}>
         <Header>
           <time class="bl_posts_date">
             {dayjs(props.article.created_at).format('YYYY-MM-DD')}
           </time>
         </Header>
-        <div class="bl_posts_summary">
-          <p>
-            {props.article.text.substr(0, 125)}
-          </p>
-        </div>
-      </Link>
+        <Summary>
+          {props.article.text.substr(0, 125)}…
+        </Summary>
+      </StyledLink>
       <Footer>
         <span class="bl_posts_dateago">{dayjs(props.article.created_at).fromNow()}</span>
         <Link href={'/?uuid=' + props.article.uuid + '&edit=1'}>Edit</Link>
