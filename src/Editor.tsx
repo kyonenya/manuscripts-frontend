@@ -2,7 +2,7 @@ import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import EasyMDEReact from 'react-simplemde-editor';
 import EasyMDE from 'easymde';
-import "easymde/dist/easymde.min.css";
+import "./css/easymde.css";
 import dayjs from 'dayjs';
 import { HeaderMenu } from './HeaderMenu';
 import { articlable } from './types';
