@@ -69,4 +69,7 @@ export const Editor = (props: {
 
 const EditorWrapper = styled.div`
   font-family: sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  text-align: justify /* 均等割付 */;
 `;
