@@ -2,6 +2,14 @@ import { h } from 'preact';
 import { Manuscripts } from './Manuscripts';
 import styled from 'styled-components';
 
+export const App = () => {
+  return (
+    <Container>
+      <Manuscripts />
+    </Container>
+  );
+};
+
 const Container = styled.div`
   margin: 0 auto;
   @media screen and (max-width: 559px) {
@@ -15,12 +23,6 @@ const Container = styled.div`
     width: 77vw;
     max-width: 900px;
   }
+  /* Grobal styles */
+  font-family: "Helvetica Neue", Verdana, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
 `;
-
-export const App = () => {
-  return (
-    <Container>
-      <Manuscripts />
-    </Container>
-  );
-};

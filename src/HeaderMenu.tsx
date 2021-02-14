@@ -16,7 +16,7 @@ const Button = styled.div`
   text-align: center;
 `;
 const Date = styled.div`
-  width: 8em;
+  width: 9em;
   color: gray;
 `;
 
