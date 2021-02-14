@@ -61,6 +61,13 @@ export const Editor = (props: {
       <EditorWrapper>
         <EasyMDEReact
           getMdeInstance={(instance: EasyMDE) => editorRef.current = instance}
+          options={{
+            autosave: {
+              enabled: true,
+              uniqueId: props.uuid,
+              delay: 5000,
+            },
+          }}
         />
       </EditorWrapper>
     </Fragment>
