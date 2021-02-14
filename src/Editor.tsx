@@ -54,7 +54,11 @@ export const Editor = (props: {
   return (
     <Fragment>
       <HeaderMenu
-        createdAt={dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')}
+        createdAt={
+          props.article.created_at
+            ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
+            : '...'
+          }
         handleSubmit={handleSubmit}
         isLoading={isLoading}
       />
