@@ -35,15 +35,15 @@ export const Editor = (props: {
             ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
             : '...'
           }
-        handleSubmit={() => handleSubmit(
-          {
+        handleSubmit={() => handleSubmit({
+          article: {
             text: editorRef.current.value(),
             tags: ['dummyTag1', 'dummyTag2'],
             uuid: props.uuid,
             starred: false,
           },
-          false
-        )}
+          isNew: false,
+        })}
         isLoading={isLoading}
       />
       <EditorWrapper>
