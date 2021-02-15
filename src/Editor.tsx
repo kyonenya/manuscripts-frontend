@@ -15,7 +15,7 @@ export const Editor = (props: {
   uuid: string,
   isEdit: boolean,
 }) => {
-  const { handleSubmit, isLoading } = useSubmit();
+  const { submit, isLoading } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const Editor = (props: {
             ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
             : '...'
           }
-        handleSubmit={() => handleSubmit({
+        handleSubmit={() => submit({
           article: {
             text: editorRef.current.value(),
             tags: ['dummyTag1', 'dummyTag2'],

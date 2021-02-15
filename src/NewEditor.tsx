@@ -6,38 +6,13 @@ import "./css/easymde.css";
 import "./css/codemirror.css";
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
+import { useSubmit } from './useSubmit';
 import { HeaderMenu } from './HeaderMenu';
 import { articlable } from './types';
 
 export const NewEditor = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { submit, isLoading } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
-
-  const handleSubmit = () => {
-    setIsLoading(true);
-    const text = editorRef.current.value();
-    const uuid = uuidv4().replace(/-/g, '');
-    const article = {
-      text,
-      tags: ['dummyTag1', 'dummyTag2'],
-      uuid,
-      starred: false,
-    };
-    fetch(`https://manuscripts.herokuapp.com/api/entries/${uuid}`, {
-//      method: isNew ? 'POST' : 'PUT',
-      method: 'POST',
-      body: JSON.stringify(article),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        setIsLoading(false);
-      })
-      .catch(err => console.error(err));
-  };
 
   return (
     <Fragment>
@@ -45,7 +20,15 @@ export const NewEditor = () => {
         createdAt={
             dayjs().format('YYYY-MM-DD HH:mm')
           }
-        handleSubmit={handleSubmit}
+        handleSubmit={() => submit({
+          article: {
+            text: editorRef.current.value(),
+            tags: ['dummyTag1', 'dummyTag2'],
+            uuid: uuidv4().replace(/-/g, ''),
+            starred: false,
+          },
+          isNew: true,
+        })}
         isLoading={isLoading}
       />
       <EditorWrapper>

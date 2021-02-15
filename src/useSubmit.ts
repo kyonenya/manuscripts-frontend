@@ -4,7 +4,7 @@ import { articlable } from './types';
 export const useSubmit = () => {
   const [isLoading, setIsLoading] = useState(false);
   
-  const handleSubmit = (params: {
+  const submit = (params: {
     article: articlable,
     isNew: boolean,
   }) => {
@@ -22,5 +22,5 @@ export const useSubmit = () => {
       .catch(err => console.error(err));
   };
   
-  return { handleSubmit, isLoading };
+  return { submit, isLoading };
 };
