@@ -8,6 +8,7 @@ import { articlable } from './types';
 export const Manuscripts = () => {
   const uuid = useSearchParam('uuid');
   const isEdit = !!useSearchParam('edit');
+  const isNew = !!useSearchParam('new');
   const [articles, setArticles] = useState<articlable[]>([]);
 
   useEffect(() => {
@@ -18,11 +19,12 @@ export const Manuscripts = () => {
   }, []);
 
   return (
-    uuid
+    uuid || isNew
       ? <Article
         initArticle={articles.find(article => article.uuid === uuid) ?? null}
-        uuid={uuid}
+        uuid={uuid ?? ''}
         isEdit={isEdit}
+        isNew={isNew}
       />
      : <PageList articles={articles} />
   );

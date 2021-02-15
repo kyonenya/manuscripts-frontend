@@ -8,8 +8,8 @@ export const Article = (props: {
   initArticle: articlable|null,
   uuid: string,
   isEdit: boolean,
+  isNew: boolean,
 }) => {
-//  const isNew = true;
   const [article, setArticle] = useState<articlable>(emptyArticle);
 
   useEffect(() => {
@@ -19,8 +19,10 @@ export const Article = (props: {
       .then(article => setArticle(article));
   }, []);
 
-  return (    
-    <Editor article={article} uuid={props.uuid} isEdit={props.isEdit} />
+  return (
+    props.isNew
+      ? <h1>New</h1>
+      : <Editor article={article} uuid={props.uuid} isEdit={props.isEdit} />
   );
 };
 
