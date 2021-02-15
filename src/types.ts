@@ -3,8 +3,8 @@ export type articlable = {
   tags: string[],
   starred: boolean,
   uuid: string,
-  created_at: string,
-  modified_at: string,
+  created_at?: string,
+  modified_at?: string,
 }
 
 export const emptyArticle = {

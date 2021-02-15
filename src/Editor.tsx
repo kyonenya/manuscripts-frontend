@@ -7,6 +7,7 @@ import "./css/easymde.css";
 import "./css/codemirror.css";
 import dayjs from 'dayjs';
 import { HeaderMenu } from './HeaderMenu';
+import { useSubmit } from './useSubmit';
 import { articlable } from './types';
 
 export const Editor = (props: {
@@ -14,7 +15,8 @@ export const Editor = (props: {
   uuid: string,
   isEdit: boolean,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+//  const [isLoading, setIsLoading] = useState(false);
+  const { handleSubmit, isLoading } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
@@ -26,30 +28,30 @@ export const Editor = (props: {
     editorRef.current.value(props.article.text);
   }, [props.article]);
 
-  const handleSubmit = () => {
-    setIsLoading(true);
-    const text = editorRef.current.value();
-    const article = {
-      text,
-      tags: ['dummyTag1', 'dummyTag2'],
-      uuid: props.uuid,
-      starred: false,
-    };
-    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
-//      method: isNew ? 'POST' : 'PUT',
-      method: 'PUT',
-      body: JSON.stringify(article),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        setIsLoading(false);
-      })
-      .catch(err => console.error(err));
-  };
+//  const handleSubmit = () => {
+//    setIsLoading(true);
+//    const text = editorRef.current.value();
+//    const article = {
+//      text,
+//      tags: ['dummyTag1', 'dummyTag2'],
+//      uuid: props.uuid,
+//      starred: false,
+//    };
+//    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
+////      method: isNew ? 'POST' : 'PUT',
+//      method: 'PUT',
+//      body: JSON.stringify(article),
+//      headers: {
+//        'Content-type': 'application/json; charset=UTF-8'
+//      },
+//    })
+//      .then(res => res.json())
+//      .then(data => {
+//        console.log(data);
+//        setIsLoading(false);
+//      })
+//      .catch(err => console.error(err));
+//  };
 
   return (
     <Fragment>
@@ -59,7 +61,15 @@ export const Editor = (props: {
             ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
             : '...'
           }
-        handleSubmit={handleSubmit}
+        handleSubmit={() => handleSubmit(
+          {
+            text: editorRef.current.value(),
+            tags: ['dummyTag1', 'dummyTag2'],
+            uuid: props.uuid,
+            starred: false,
+          },
+          false
+        )}
         isLoading={isLoading}
       />
       <EditorWrapper>
