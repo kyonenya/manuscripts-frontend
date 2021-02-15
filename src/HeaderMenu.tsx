@@ -6,7 +6,7 @@ import { articlable } from './types';
 export const HeaderMenu = (props: {
   createdAt: string,
   handleSubmit: () => void,
-  isLoading: boolean,
+  isSubmitting: boolean,
 }) => {
   return (
     <nav>
@@ -20,7 +20,7 @@ export const HeaderMenu = (props: {
         <li><Button>🔖</Button></li>
         <li>
           <Button onClick={props.handleSubmit}>
-            { props.isLoading ? '⏳' : '✅'}
+            { props.isSubmitting ? '⏳' : '✅'}
           </Button>
         </li>
       </HorizontalList>

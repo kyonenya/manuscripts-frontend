@@ -11,15 +11,15 @@ import { HeaderMenu } from './HeaderMenu';
 import { articlable } from './types';
 
 export const NewEditor = () => {
-  const { submit, isLoading } = useSubmit();
+  const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   return (
     <Fragment>
       <HeaderMenu
         createdAt={
-            dayjs().format('YYYY-MM-DD HH:mm')
-          }
+          dayjs().format('YYYY-MM-DD HH:mm')
+        }
         handleSubmit={() => submit({
           article: {
             text: editorRef.current.value(),
@@ -29,7 +29,7 @@ export const NewEditor = () => {
           },
           isNew: true,
         })}
-        isLoading={isLoading}
+        isSubmitting={isSubmitting}
       />
       <EditorWrapper>
         <EasyMDEReact

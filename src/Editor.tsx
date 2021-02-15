@@ -15,7 +15,7 @@ export const Editor = (props: {
   uuid: string,
   isEdit: boolean,
 }) => {
-  const { submit, isLoading } = useSubmit();
+  const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export const Editor = (props: {
           },
           isNew: false,
         })}
-        isLoading={isLoading}
+        isSubmitting={isSubmitting}
       />
       <EditorWrapper>
         <EasyMDEReact
