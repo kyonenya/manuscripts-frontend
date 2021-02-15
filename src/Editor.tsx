@@ -15,7 +15,6 @@ export const Editor = (props: {
   uuid: string,
   isEdit: boolean,
 }) => {
-//  const [isLoading, setIsLoading] = useState(false);
   const { handleSubmit, isLoading } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
@@ -27,31 +26,6 @@ export const Editor = (props: {
   useEffect(() => {
     editorRef.current.value(props.article.text);
   }, [props.article]);
-
-//  const handleSubmit = () => {
-//    setIsLoading(true);
-//    const text = editorRef.current.value();
-//    const article = {
-//      text,
-//      tags: ['dummyTag1', 'dummyTag2'],
-//      uuid: props.uuid,
-//      starred: false,
-//    };
-//    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
-////      method: isNew ? 'POST' : 'PUT',
-//      method: 'PUT',
-//      body: JSON.stringify(article),
-//      headers: {
-//        'Content-type': 'application/json; charset=UTF-8'
-//      },
-//    })
-//      .then(res => res.json())
-//      .then(data => {
-//        console.log(data);
-//        setIsLoading(false);
-//      })
-//      .catch(err => console.error(err));
-//  };
 
   return (
     <Fragment>
