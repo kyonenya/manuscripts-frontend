@@ -14,6 +14,7 @@ import { articlable } from './types';
 export const Editor = (props: {
   article: articlable,
   isNew: boolean,
+  toggleModified: () => void,
 }) => {
   const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
@@ -27,6 +28,19 @@ export const Editor = (props: {
     if (!props.isNew) editorRef.current.value(props.article.text);
   }, [props.article]);
 
+  const handleSubmit = () => {
+    submit({
+      article: {
+        text: editorRef.current.value(),
+        tags: ['dummyTag1', 'dummyTag2'],
+        uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
+        starred: false,
+      },
+      isNew: props.isNew,
+    });
+    props.toggleModified();
+  };
+
   return (
     <Fragment>
       <HeaderMenu
@@ -37,15 +51,7 @@ export const Editor = (props: {
               ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
               : '...'
           }
-        handleSubmit={() => submit({
-          article: {
-            text: editorRef.current.value(),
-            tags: ['dummyTag1', 'dummyTag2'],
-            uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
-            starred: false,
-          },
-          isNew: props.isNew,
-        })}
+        handleSubmit={handleSubmit}
         isSubmitting={isSubmitting}
       />
       <EditorWrapper>

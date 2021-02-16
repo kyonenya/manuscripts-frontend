@@ -6,8 +6,8 @@ import { articlable, emptyArticle } from './types';
 export const Article = (props: {
   initArticle: articlable|null,
   uuid: string,
-  isEdit: boolean,
   isNew: boolean,
+  toggleModified: () => void,
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
 
@@ -19,9 +19,7 @@ export const Article = (props: {
   }, []);
 
   return (
-    props.isNew
-      ? <Editor article={article} isNew={props.isNew} />
-      : <Editor article={article} isNew={props.isNew} />
+    <Editor article={article} isNew={props.isNew} toggleModified={props.toggleModified}/>
   );
 };
 
