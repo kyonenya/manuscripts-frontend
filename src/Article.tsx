@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { Editor } from './Editor';
-import { NewEditor } from './NewEditor';
 import { articlable, emptyArticle } from './types';
 
 export const Article = (props: {

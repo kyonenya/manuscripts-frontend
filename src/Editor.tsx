@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact';
-import { useState, useEffect, useRef, Ref } from 'preact/hooks';
+import { useEffect, useRef, Ref } from 'preact/hooks';
 import styled from 'styled-components';
 import EasyMDEReact from 'react-simplemde-editor';
 //import EasyMDE from 'easymde';
@@ -54,10 +54,10 @@ export const Editor = (props: {
           getMdeInstance={(instance: EasyMDE) => editorRef.current = instance}
           options={props.isNew
             ? {
-              autosave: {
-                enabled: true,
-                uniqueId: 'new',
-                delay: 5000,
+                autosave: {
+                  enabled: true,
+                  uniqueId: 'new',
+                  delay: 5000,
               },
             }
             : {}
