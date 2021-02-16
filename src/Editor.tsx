@@ -74,23 +74,29 @@ const EditorWrapper = styled.div`
 
   /* override */
   .cm-s-easymde .cm-header-1,
-  .editor-preview-full h1 {
+  .editor-preview h1 {
     font-size: 160%;
     line-height: 160%;
   }
   .cm-s-easymde .cm-header-2,
-  .editor-preview-full h2 {
+  .editor-preview h2 {
     font-size: 130%;
     line-height: 130%;
   }
   .cm-s-easymde .cm-header-3,
-  .editor-preview-full h3 {
+  .editor-preview h3 {
     font-size: 115%;
     line-height: 115%;
   }
   .cm-s-easymde .cm-header-4,
-  .editor-preview-full h4 {
+  .editor-preview h4 {
     font-size: 105%;
     line-height: 105%;
+  }
+  .editor-preview ul {
+    padding-inline-start: 1.5em;
+  }
+  .editor-preview {
+    padding: 1em;
   }
 `;
