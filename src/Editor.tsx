@@ -13,7 +13,6 @@ import { articlable } from './types';
 
 export const Editor = (props: {
   article: articlable,
-  uuid: string,
   isNew: boolean,
 }) => {
   const { submit, isSubmitting } = useSubmit();
@@ -42,7 +41,7 @@ export const Editor = (props: {
           article: {
             text: editorRef.current.value(),
             tags: ['dummyTag1', 'dummyTag2'],
-            uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.uuid,
+            uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
             starred: false,
           },
           isNew: props.isNew,
