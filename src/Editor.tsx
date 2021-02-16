@@ -68,8 +68,29 @@ export const Editor = (props: {
 };
 
 const EditorWrapper = styled.div`
-  font-family: sans-serif;
   font-size: 16px;
   line-height: 1.65;
   text-align: justify /* 均等割付 */;
+
+  /* override */
+  .cm-s-easymde .cm-header-1,
+  .editor-preview-full h1 {
+    font-size: 160%;
+    line-height: 160%;
+  }
+  .cm-s-easymde .cm-header-2,
+  .editor-preview-full h2 {
+    font-size: 130%;
+    line-height: 130%;
+  }
+  .cm-s-easymde .cm-header-3,
+  .editor-preview-full h3 {
+    font-size: 115%;
+    line-height: 115%;
+  }
+  .cm-s-easymde .cm-header-4,
+  .editor-preview-full h4 {
+    font-size: 105%;
+    line-height: 105%;
+  }
 `;
