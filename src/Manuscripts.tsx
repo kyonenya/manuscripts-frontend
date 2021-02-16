@@ -8,15 +8,16 @@ import { articlable } from './types';
 export const Manuscripts = () => {
   const [articles, setArticles] = useState<articlable[]>([]);
   const [isModified, setIsModified] = useState(false);
-console.log(isModified);
+
   const uuid = useSearchParam('uuid');
   const isNew = !!useSearchParam('new');
 
   useEffect(() => {
-    const limitNum = 5;
+    const limitNum = 7;
     fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`)
       .then(response => response.json())
-      .then(articles => setArticles(articles));
+      .then(articles => setArticles(articles))
+      .then(_ => setIsModified(false));
   }, [isModified]);
 
   return (
@@ -25,7 +26,7 @@ console.log(isModified);
         initArticle={articles.find(article => article.uuid === uuid) ?? null}
         uuid={uuid ?? ''}
         isNew={isNew}
-        toggleModified={() => setIsModified(prev => !prev)}
+        setModified={() => setIsModified(true)}
       />
      : <PageList articles={articles} />
   );

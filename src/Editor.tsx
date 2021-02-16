@@ -14,7 +14,7 @@ import { articlable } from './types';
 export const Editor = (props: {
   article: articlable,
   isNew: boolean,
-  toggleModified: () => void,
+  setModified: () => void,
 }) => {
   const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
@@ -38,7 +38,7 @@ export const Editor = (props: {
       },
       isNew: props.isNew,
     });
-    props.toggleModified();
+    props.setModified();
   };
 
   return (

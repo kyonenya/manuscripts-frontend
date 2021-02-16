@@ -7,7 +7,7 @@ export const Article = (props: {
   initArticle: articlable|null,
   uuid: string,
   isNew: boolean,
-  toggleModified: () => void,
+  setModified: () => void,
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
 
@@ -19,7 +19,7 @@ export const Article = (props: {
   }, []);
 
   return (
-    <Editor article={article} isNew={props.isNew} toggleModified={props.toggleModified}/>
+    <Editor article={article} isNew={props.isNew} setModified={props.setModified}/>
   );
 };
 
