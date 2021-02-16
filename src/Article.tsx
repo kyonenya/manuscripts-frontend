@@ -21,8 +21,8 @@ export const Article = (props: {
 
   return (
     props.isNew
-      ? <NewEditor />
-      : <Editor article={article} uuid={props.uuid} isEdit={props.isEdit} />
+      ? <Editor article={article} uuid={props.uuid} isNew={props.isNew} />
+      : <Editor article={article} uuid={props.uuid} isNew={props.isNew} />
   );
 };
 

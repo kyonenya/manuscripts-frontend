@@ -6,6 +6,7 @@ import EasyMDEReact from 'react-simplemde-editor';
 import "./css/easymde.css";
 import "./css/codemirror.css";
 import dayjs from 'dayjs';
+import { v4 as uuidv4 } from 'uuid';
 import { HeaderMenu } from './HeaderMenu';
 import { useSubmit } from './useSubmit';
 import { articlable } from './types';
@@ -13,43 +14,55 @@ import { articlable } from './types';
 export const Editor = (props: {
   article: articlable,
   uuid: string,
-  isEdit: boolean,
+  isNew: boolean,
 }) => {
   const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
     // @ts-ignore
-    if (!props.isEdit) editorRef.current.togglePreview();
+    if (!props.isNew) editorRef.current.togglePreview();
   }, []);
 
   useEffect(() => {
-    editorRef.current.value(props.article.text);
+    if (!props.isNew) editorRef.current.value(props.article.text);
   }, [props.article]);
 
   return (
     <Fragment>
       <HeaderMenu
         createdAt={
-          props.article.created_at
-            ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
-            : '...'
+          props.isNew
+            ? dayjs().format('YYYY-MM-DD HH:mm')
+            : props.article.created_at
+              ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
+              : '...'
           }
         handleSubmit={() => submit({
           article: {
             text: editorRef.current.value(),
             tags: ['dummyTag1', 'dummyTag2'],
-            uuid: props.uuid,
+            uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.uuid,
             starred: false,
           },
-          isNew: false,
+          isNew: props.isNew,
         })}
         isSubmitting={isSubmitting}
       />
       <EditorWrapper>
         <EasyMDEReact
           getMdeInstance={(instance: EasyMDE) => editorRef.current = instance}
-       />
+          options={props.isNew
+            ? {
+              autosave: {
+                enabled: true,
+                uniqueId: 'new',
+                delay: 5000,
+              },
+            }
+            : {}
+          }
+        />
       </EditorWrapper>
     </Fragment>
   );
