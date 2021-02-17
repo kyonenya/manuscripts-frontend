@@ -19,8 +19,10 @@ export const HeaderMenu = (props: {
           </Date>
         </li>
         <li><Button>❤️</Button></li>
-        <li onClick={() => setIsOpen(prev => !prev)} style="position: relative;">
-          <Button>🔖</Button>
+        <li style="position: relative;">
+          <ButtonDropDown onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
+            🔖
+          </ButtonDropDown>
           <DropDown isOpen={isOpen}>
             <div>メニュー1</div>
             <div>メニュー2</div>
@@ -62,6 +64,21 @@ const Button = styled.div`
   display: block;
   width: 2.5em;
   text-align: center;
+`;
+const ButtonDropDown = styled(Button)`
+  &::after {
+    ${props => props.isOpen ? `
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      cursor: default;
+    ` : ''
+    }
+  }
 `;
 const Date = styled.div`
   color: var(--monochrome-weighty);
