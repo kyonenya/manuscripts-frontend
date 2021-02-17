@@ -68,6 +68,7 @@ const Button = styled.div`
 const ButtonDropDown = styled(Button)`
   &::after {
     ${props => props.isOpen ? `
+      /* click anywhere to close */
       content: "";
       position: fixed;
       top: 0;
