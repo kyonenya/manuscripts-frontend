@@ -48,7 +48,7 @@ const HorizontalList = styled.ul`
   padding: 0px;
 `;
 const DropDown = styled.div`
-  display: ${props => props.isOpen ? 'block' : 'none'};
+  display: ${props => props.isOpen ? 'flex' : 'none'};
   position: absolute;
   top: 32px;
   right: 8px;
@@ -59,6 +59,9 @@ const DropDown = styled.div`
   border-radius: 4px;
   box-shadow: 0 2px 6px 2px rgba(60, 64, 67, 0.15), 0 1px 2px 0 rgba(60, 64, 67, 0.3);
   overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5em;
 `;
 const Button = styled.div`
   display: block;
