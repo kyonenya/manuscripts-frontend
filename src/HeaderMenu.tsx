@@ -86,5 +86,5 @@ const ButtonDropDown = styled(Button)`
 `;
 const Date = styled.div`
   color: var(--monochrome-weighty);
-  width: 9em;
+  width: 10em;
 `;
