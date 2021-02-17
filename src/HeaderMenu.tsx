@@ -41,6 +41,6 @@ const Button = styled.div`
   text-align: center;
 `;
 const Date = styled.div`
+  color: var(--monochrome-weighty);
   width: 9em;
-  color: gray;
 `;
