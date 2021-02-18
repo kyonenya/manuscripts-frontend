@@ -41,11 +41,23 @@ export const HeaderMenu = (props: {
   );
 };
 
+export const TopHeaderMenu = () => {
+  return (
+    <nav>
+      <HorizontalList>
+        <li style="margin-right: auto;"><Button>⚙</Button></li>
+        <li><Button>✏️</Button></li>
+      </HorizontalList>
+    </nav>
+  );
+};
+
 const HorizontalList = styled.ul`
   display: flex;
   justify-content: flex-end;
   align-items: center /* vertical */;
   list-style-type: none;
+  background: #4d9abf;
   padding: 0px;
 `;
 const DropDown = styled.div`
