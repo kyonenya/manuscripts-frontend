@@ -14,9 +14,11 @@ import { articlable } from './types';
 export const Editor = (props: {
   article: articlable,
   isNew: boolean,
+  submit: (article: articlable, isNew: boolean) => void,
+  isSubmitting: boolean,
   setModified: () => void,
 }) => {
-  const { submit, isSubmitting } = useSubmit();
+  // const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export const Editor = (props: {
   }, [props.article]);
 
   const handleSubmit = () => {
-    submit({
+    props.submit({
       text: editorRef.current.value(),
       tags: ['dummyTag1', 'dummyTag2'],
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
@@ -50,7 +52,7 @@ export const Editor = (props: {
               : '...'
           }
         handleSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
+        isSubmitting={props.isSubmitting}
       />
       <EditorWrapper>
         <EasyMDEReact

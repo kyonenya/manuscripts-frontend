@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { Editor } from './Editor';
+import { useSubmit } from './useSubmit';
 import { articlable, emptyArticle } from './types';
 
 export const Article = (props: {
@@ -10,6 +11,7 @@ export const Article = (props: {
   setModified: () => void,
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
+  const { submit, isSubmitting } = useSubmit();
 
   useEffect(() => {
     if (props.initArticle) return setArticle(props.initArticle);
@@ -19,7 +21,13 @@ export const Article = (props: {
   }, []);
 
   return (
-    <Editor article={article} isNew={props.isNew} setModified={props.setModified}/>
+    <Editor
+      article={article}
+      isNew={props.isNew}
+      submit={submit}
+      isSubmitting={isSubmitting}
+      setModified={props.setModified}
+    />
   );
 };
 
