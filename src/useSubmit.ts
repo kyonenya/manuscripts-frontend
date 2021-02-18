@@ -4,14 +4,11 @@ import { articlable } from './types';
 export const useSubmit = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = (params: {
-    article: articlable,
-    isNew: boolean,
-  }) => {
+  const submit = (article: articlable, isNew: boolean) => {
     setIsSubmitting(true);
-    fetch(`https://manuscripts.herokuapp.com/api/entries/${params.article.uuid}`, {
-      method: params.isNew ? 'POST' : 'PUT',
-      body: JSON.stringify(params.article),
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${article.uuid}`, {
+      method: isNew ? 'POST' : 'PUT',
+      body: JSON.stringify(article),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
     })
       .then(res => res.json())

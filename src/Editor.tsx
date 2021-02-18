@@ -30,14 +30,11 @@ export const Editor = (props: {
 
   const handleSubmit = () => {
     submit({
-      article: {
-        text: editorRef.current.value(),
-        tags: ['dummyTag1', 'dummyTag2'],
-        uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
-        starred: false,
-      },
-      isNew: props.isNew,
-    });
+      text: editorRef.current.value(),
+      tags: ['dummyTag1', 'dummyTag2'],
+      uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
+      starred: false,
+    }, props.isNew);
     props.setModified();
     if (props.isNew) localStorage.setItem('smde_new', '');
   };
