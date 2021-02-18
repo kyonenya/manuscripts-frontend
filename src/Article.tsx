@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import { Editor } from './Editor';
 import { useSubmit } from './useSubmit';
 import { articlable, emptyArticle } from './types';
@@ -12,6 +12,7 @@ export const Article = (props: {
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
   const { submit, isSubmitting } = useSubmit();
+  const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
     if (props.initArticle) return setArticle(props.initArticle);
@@ -27,6 +28,7 @@ export const Article = (props: {
       submit={submit}
       isSubmitting={isSubmitting}
       setModified={props.setModified}
+      editorRef={editorRef}
     />
   );
 };

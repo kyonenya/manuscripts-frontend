@@ -17,22 +17,20 @@ export const Editor = (props: {
   submit: (article: articlable, isNew: boolean) => void,
   isSubmitting: boolean,
   setModified: () => void,
+  editorRef: Ref<EasyMDE>;
 }) => {
-  // const { submit, isSubmitting } = useSubmit();
-  const editorRef: Ref<EasyMDE> = useRef();
-
   useEffect(() => {
     // @ts-ignore
-    if (!props.isNew) editorRef.current.togglePreview();
+    if (!props.isNew) props.editorRef.current.togglePreview();
   }, []);
 
   useEffect(() => {
-    if (!props.isNew) editorRef.current.value(props.article.text);
+    if (!props.isNew) props.editorRef.current.value(props.article.text);
   }, [props.article]);
 
   const handleSubmit = () => {
     props.submit({
-      text: editorRef.current.value(),
+      text: props.editorRef.current.value(),
       tags: ['dummyTag1', 'dummyTag2'],
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
       starred: false,
@@ -56,7 +54,7 @@ export const Editor = (props: {
       />
       <EditorWrapper>
         <EasyMDEReact
-          getMdeInstance={(instance: EasyMDE) => editorRef.current = instance}
+          getMdeInstance={(instance: EasyMDE) => props.editorRef.current = instance}
           options={props.isNew
             ? {
                 autosave: {
