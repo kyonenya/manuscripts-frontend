@@ -51,10 +51,6 @@ export const Article = (props: {
       <Editor
         article={article}
         isNew={props.isNew}
-        handleSubmit={handleSubmit}
-        submit={submit}
-        isSubmitting={isSubmitting}
-        setModified={props.setModified}
         editorRef={editorRef}
       />
     </Fragment>

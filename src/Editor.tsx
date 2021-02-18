@@ -10,10 +10,6 @@ import { articlable } from './types';
 export const Editor = (props: {
   article: articlable,
   isNew: boolean,
-  handleSubmit: () => void;
-  submit: (article: articlable, isNew: boolean) => void,
-  isSubmitting: boolean,
-  setModified: () => void,
   editorRef: Ref<EasyMDE>;
 }) => {
   useEffect(() => {
