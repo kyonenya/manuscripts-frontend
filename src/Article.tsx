@@ -35,6 +35,19 @@ export const Article = (props: {
     if (props.isNew) localStorage.setItem('smde_new', '');
   };
 
+  const handleDelete = () => {
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
+      method: 'DELETE',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .then(_ => props.setModified)
+      // TODO リダイレクトの正しいやり方
+      .then(_ => history.pushState({}, '', location.pathname + '?'))
+      .catch(err => console.error(err));
+  }
+
   return (
     <Fragment>
       <HeaderMenu
@@ -47,6 +60,7 @@ export const Article = (props: {
           }
         handleSubmit={handleSubmit}
         isSubmitting={isSubmitting}
+        handleDelete={handleDelete}
       />
       <Editor
         article={article}

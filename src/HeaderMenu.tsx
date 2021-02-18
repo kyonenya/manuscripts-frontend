@@ -7,6 +7,7 @@ export const HeaderMenu = (props: {
   createdAt: string,
   handleSubmit: () => void,
   isSubmitting: boolean,
+  handleDelete: () => void,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,7 +28,7 @@ export const HeaderMenu = (props: {
             <div>メニュー1</div>
             <div>メニュー2</div>
             <div>メニュー3</div>
-            <div>❌</div>
+            <Button onClick={props.handleDelete}>❌</Button>
           </DropDown>
         </li>
         <li>
