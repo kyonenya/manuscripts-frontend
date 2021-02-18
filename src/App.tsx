@@ -63,5 +63,6 @@ const GlobalStyle = createGlobalStyle`
     color: var(--text-color);
     background: var(--background-color);
     text-align: justify;
+    margin: 0;
   }
 `;

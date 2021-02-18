@@ -58,7 +58,10 @@ const HorizontalList = styled.ul`
   align-items: center /* vertical */;
   list-style-type: none;
   background: #4d9abf;
-  padding: 0px;
+  padding: 1em 0;
+  /* reset */
+  margin-block-start: 0;
+  margin-block-end: 0;
 `;
 const DropDown = styled.div`
   display: ${props => props.isOpen ? 'flex' : 'none'};
