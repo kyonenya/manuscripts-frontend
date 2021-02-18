@@ -1,12 +1,10 @@
-import { h, Fragment } from 'preact';
-import { useEffect, useRef, Ref } from 'preact/hooks';
+import { h } from 'preact';
+import { useEffect, Ref } from 'preact/hooks';
 import styled from 'styled-components';
 import EasyMDEReact from 'react-simplemde-editor';
 //import EasyMDE from 'easymde';
 import "./css/easymde.css";
 import "./css/codemirror.css";
-import dayjs from 'dayjs';
-import { HeaderMenu } from './HeaderMenu';
 import { articlable } from './types';
 
 export const Editor = (props: {
@@ -28,34 +26,20 @@ export const Editor = (props: {
   }, [props.article]);
 
   return (
-    <Fragment>
-      <HeaderMenu
-        createdAt={
-          props.isNew
-            ? dayjs().format('YYYY-MM-DD HH:mm')
-            : props.article.created_at
-              ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
-              : '...'
-          }
-        handleSubmit={props.handleSubmit}
-        isSubmitting={props.isSubmitting}
+    <EditorWrapper>
+      <EasyMDEReact
+        getMdeInstance={(instance: EasyMDE) => props.editorRef.current = instance}
+        options={props.isNew
+          ? {
+            autosave: {
+              enabled: true,
+              uniqueId: 'new',
+              delay: 5000,
+            },
+          }: {}
+        }
       />
-      <EditorWrapper>
-        <EasyMDEReact
-          getMdeInstance={(instance: EasyMDE) => props.editorRef.current = instance}
-          options={props.isNew
-            ? {
-                autosave: {
-                  enabled: true,
-                  uniqueId: 'new',
-                  delay: 5000,
-              },
-            }
-            : {}
-          }
-        />
-      </EditorWrapper>
-    </Fragment>
+    </EditorWrapper>
   );
 };
 

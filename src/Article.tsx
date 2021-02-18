@@ -1,6 +1,8 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { useState, useEffect, useRef, Ref } from 'preact/hooks';
 import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
+import { HeaderMenu } from './HeaderMenu';
 import { Editor } from './Editor';
 import { useSubmit } from './useSubmit';
 import { articlable, emptyArticle } from './types';
@@ -34,15 +36,28 @@ export const Article = (props: {
   };
 
   return (
-    <Editor
-      article={article}
-      isNew={props.isNew}
-      handleSubmit={handleSubmit}
-      submit={submit}
-      isSubmitting={isSubmitting}
-      setModified={props.setModified}
-      editorRef={editorRef}
-    />
+    <Fragment>
+      <HeaderMenu
+        createdAt={
+          props.isNew
+            ? dayjs().format('YYYY-MM-DD HH:mm')
+            : article.created_at
+              ? dayjs(article.created_at).format('YYYY-MM-DD HH:mm')
+              : '...'
+          }
+        handleSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+      />
+      <Editor
+        article={article}
+        isNew={props.isNew}
+        handleSubmit={handleSubmit}
+        submit={submit}
+        isSubmitting={isSubmitting}
+        setModified={props.setModified}
+        editorRef={editorRef}
+      />
+    </Fragment>
   );
 };
 
