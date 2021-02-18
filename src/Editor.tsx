@@ -6,14 +6,13 @@ import EasyMDEReact from 'react-simplemde-editor';
 import "./css/easymde.css";
 import "./css/codemirror.css";
 import dayjs from 'dayjs';
-import { v4 as uuidv4 } from 'uuid';
 import { HeaderMenu } from './HeaderMenu';
-import { useSubmit } from './useSubmit';
 import { articlable } from './types';
 
 export const Editor = (props: {
   article: articlable,
   isNew: boolean,
+  handleSubmit: () => void;
   submit: (article: articlable, isNew: boolean) => void,
   isSubmitting: boolean,
   setModified: () => void,
@@ -28,17 +27,6 @@ export const Editor = (props: {
     if (!props.isNew) props.editorRef.current.value(props.article.text);
   }, [props.article]);
 
-  const handleSubmit = () => {
-    props.submit({
-      text: props.editorRef.current.value(),
-      tags: ['dummyTag1', 'dummyTag2'],
-      uuid: props.isNew ? uuidv4().replace(/-/g, '') : props.article.uuid,
-      starred: false,
-    }, props.isNew);
-    props.setModified();
-    if (props.isNew) localStorage.setItem('smde_new', '');
-  };
-
   return (
     <Fragment>
       <HeaderMenu
@@ -49,7 +37,7 @@ export const Editor = (props: {
               ? dayjs(props.article.created_at).format('YYYY-MM-DD HH:mm')
               : '...'
           }
-        handleSubmit={handleSubmit}
+        handleSubmit={props.handleSubmit}
         isSubmitting={props.isSubmitting}
       />
       <EditorWrapper>
