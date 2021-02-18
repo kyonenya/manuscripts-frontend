@@ -22,7 +22,11 @@ export const PageListItem = (props: {
           </time>
         </Header>
         <Summary>
-          {props.article.text.substr(0, 125)}…
+          {
+            props.article.text.length > 125
+              ? props.article.text.substr(0, 125) + '…'
+              : props.article.text
+          }
         </Summary>
       </PlainLink>
       <Footer>
@@ -33,17 +37,17 @@ export const PageListItem = (props: {
 };
 
 const StyledListItem = styled.li`
-  padding: 0.5em 0;
-  border-bottom: 1px solid hsl(0, 0%, 85%) /* var(monochrome-light) */;
+  border-bottom: 1px solid var(--monochrome-light);
   display: block;
   margin: 0 auto;
+  padding: 0.5em 0;
 `;
 const Header = styled.header`
-  color: hsl(0, 0%, 38%) /* var(--monochrome-dark) */;
+  color: var(--monochrome-weighty);
   margin-bottom: 0.4em;
 `;
 const Footer = styled.footer`
-  color: hsl(0, 0%, 38%);
+  color: var(--monochrome-weighty);
   margin-top: 0.4em;
 `;
 const PlainLink = styled(Link)`
@@ -51,6 +55,5 @@ const PlainLink = styled(Link)`
   color: inherit;
 `;
 const Summary = styled.div`
-  text-align: justify;
   line-height: 1.5;
 `;

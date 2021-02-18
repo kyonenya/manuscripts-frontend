@@ -39,6 +39,7 @@ export const Editor = (props: {
       isNew: props.isNew,
     });
     props.setModified();
+    if (props.isNew) localStorage.setItem('smde_new', '');
   };
 
   return (
