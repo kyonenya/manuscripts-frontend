@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Manuscripts } from './Manuscripts';
+import { Container } from './styled/Container';
 
 export const App = () => {
   return (
@@ -14,20 +15,6 @@ export const App = () => {
   );
 };
 
-const Container = styled.div`
-  margin: 0 auto;
-  @media screen and (max-width: 559px) {
-    width: 91vw; 
-    margin-bottom: 1.5em;
-  }
-  @media screen and (min-width: 560px) {
-    width: 85vw;
-  }
-  @media screen and (min-width: 960px) {
-    width: 77vw;
-    max-width: 900px;
-  }
-`;
 const GlobalStyle = createGlobalStyle`
   :root {
     --text-color: hsl(0, 0%, 20%);
@@ -63,5 +50,6 @@ const GlobalStyle = createGlobalStyle`
     color: var(--text-color);
     background: var(--background-color);
     text-align: justify;
+    margin: 0;
   }
 `;

@@ -7,6 +7,7 @@ export const HeaderMenu = (props: {
   createdAt: string,
   handleSubmit: () => void,
   isSubmitting: boolean,
+  handleDelete: () => void,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,7 +28,7 @@ export const HeaderMenu = (props: {
             <div>メニュー1</div>
             <div>メニュー2</div>
             <div>メニュー3</div>
-            <div>❌</div>
+            <Button onClick={props.handleDelete}>❌</Button>
           </DropDown>
         </li>
         <li>
@@ -40,12 +41,27 @@ export const HeaderMenu = (props: {
   );
 };
 
+export const TopHeaderMenu = () => {
+  return (
+    <nav>
+      <HorizontalList>
+        <li style="margin-right: auto;"><Button>⚙</Button></li>
+        <li><Button>✏️</Button></li>
+      </HorizontalList>
+    </nav>
+  );
+};
+
 const HorizontalList = styled.ul`
   display: flex;
   justify-content: flex-end;
   align-items: center /* vertical */;
   list-style-type: none;
-  padding: 0px;
+  background: #4d9abf;
+  padding: 1em 0;
+  /* reset */
+  margin-block-start: 0;
+  margin-block-end: 0;
 `;
 const DropDown = styled.div`
   display: ${props => props.isOpen ? 'flex' : 'none'};
