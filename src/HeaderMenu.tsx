@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import styled from 'styled-components';
+import { PlainLink } from './styled/PlainLink';
 import { articlable } from './types';
 
 export const HeaderMenu = (props: {
@@ -14,7 +15,9 @@ export const HeaderMenu = (props: {
   return (
     <StyledHeaderMenu>
       <HorizontalList>
-        <li><Button>↩️</Button></li>
+        <li>
+          <Button><PlainLink href="?">↩️</PlainLink></Button>
+        </li>
         <li><Button>－</Button></li>
         <li><Button>－</Button></li>
         <li style="margin: 0 auto;">
@@ -52,7 +55,9 @@ export const TopHeaderMenu = () => {
         <li style="margin: 0 auto;">
           <SearchBox type="text" />
         </li>
-        <li><Button>✏️</Button></li>
+        <li>
+          <Button><PlainLink href="?new=1">✏️</PlainLink></Button>
+        </li>
       </HorizontalList>
     </StyledHeaderMenu>
   );
@@ -116,6 +121,7 @@ const ButtonDropDown = styled(Button)`
 const Date = styled.div`
   color: var(--monochrome-weighty);
   width: 10em;
+  text-align: center;
 `;
 const SearchBox = styled.input`
 `;
