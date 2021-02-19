@@ -5,7 +5,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const config = require('./webpack.dev.config.js');
 const middleware = webpackDevMiddleware(webpack(config));
 
-const port = 3000;
+const port = process.env['WEB_APP_PORT'] || 3000;
 const app = express();
 app
   .use(middleware)
@@ -19,8 +19,6 @@ app
   ;
 
 // Register app and middleware. Required for better performance when running from play.js
-try {
+if (pjs) {
   pjs.register(app, middleware);
-} catch (err) {
-  console.log(err);
 }
