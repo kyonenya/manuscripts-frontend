@@ -12,9 +12,12 @@ export const HeaderMenu = (props: {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav>
+    <StyledHeaderMenu>
       <HorizontalList>
-        <li style="margin-right: auto;">
+        <li><Button>↩️</Button></li>
+        <li><Button>－</Button></li>
+        <li><Button>－</Button></li>
+        <li style="margin: 0 auto;">
           <Date>
             {props.createdAt}
           </Date>
@@ -37,27 +40,37 @@ export const HeaderMenu = (props: {
           </Button>
         </li>
       </HorizontalList>
-    </nav>
+    </StyledHeaderMenu>
   );
 };
 
 export const TopHeaderMenu = () => {
   return (
-    <nav>
+    <StyledHeaderMenu>
       <HorizontalList>
-        <li style="margin-right: auto;"><Button>⚙</Button></li>
+        <li><Button>⚙</Button></li>
+        <li style="margin: 0 auto;">
+          <SearchBox type="text" />
+        </li>
         <li><Button>✏️</Button></li>
       </HorizontalList>
-    </nav>
+    </StyledHeaderMenu>
   );
 };
 
+const StyledHeaderMenu = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 99;
+`;
 const HorizontalList = styled.ul`
   display: flex;
   justify-content: flex-end;
   align-items: center /* vertical */;
   list-style-type: none;
-  background: #4d9abf;
+  background: var(--monochrome-exlight);
   padding: 1em 0;
   /* reset */
   margin-block-start: 0;
@@ -103,4 +116,6 @@ const ButtonDropDown = styled(Button)`
 const Date = styled.div`
   color: var(--monochrome-weighty);
   width: 10em;
+`;
+const SearchBox = styled.input`
 `;

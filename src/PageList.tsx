@@ -4,6 +4,7 @@ import { Link } from 'wouter';
 import styled from 'styled-components';
 import { TopHeaderMenu } from './HeaderMenu';
 import { PageListItem } from './PageListItem';
+import { Container } from './styled/Container';
 import { articlable } from './types';
 
 export const PageList = (props: {
@@ -12,11 +13,13 @@ export const PageList = (props: {
   return (
     <Fragment>
       <TopHeaderMenu />
-      <StyledList>
-        {props.articles.map(article => 
-          <PageListItem article={article} />
-        )}
-      </StyledList>
+      <Container>
+        <StyledList>
+          {props.articles.map(article => 
+            <PageListItem article={article} />
+          )}
+        </StyledList>
+      </Container>
     </Fragment>
   );
 };
