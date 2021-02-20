@@ -104,7 +104,8 @@ const DropDownBody = styled.div`
 `;
 const Button = styled.div`
   display: block;
-  width: 2.5em;
+  width: 10vw;
+  max-width: 3em;
   text-align: center;
 `;
 const DropDownSwitch = styled.div`
@@ -125,8 +126,12 @@ const DropDownSwitch = styled.div`
 `;
 const Date = styled.div`
   color: var(--monochrome-weighty);
-  width: 10em;
   text-align: center;
+  /* ellipsis */
+  width: 50vw;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 const SearchBox = styled.input`
 `;
