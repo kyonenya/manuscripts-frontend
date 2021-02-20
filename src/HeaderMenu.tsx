@@ -64,7 +64,8 @@ export const TopHeaderMenu = () => {
 };
 
 const StyledHeaderMenu = styled.nav`
-  position: fixed;
+  position: sticky;
+  position: -webkit-sticky;
   top: 0;
   left: 0;
   width: 100vw;
