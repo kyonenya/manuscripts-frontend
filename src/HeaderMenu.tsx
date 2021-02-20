@@ -70,6 +70,7 @@ const StyledHeaderMenu = styled.nav`
   width: 100vw;
   z-index: 99;
   background: var(--monochrome-exlight);
+  box-shadow: 0px 0px 4px 0px rgba(60, 64, 67, 0.2);
   margin-bottom: 1em;
 `;
 const HorizontalList = styled.ul`
