@@ -19,24 +19,18 @@ export const HeaderMenu = (props: {
           <Button><PlainLink href="?">↩️</PlainLink></Button>
         </li>
         <li><Button>－</Button></li>
-        <li><Button>－</Button></li>
-        <li style="margin: 0 auto;">
-          <Date>
-            {props.createdAt}
-          </Date>
-        </li>
-        <li><Button>❤️</Button></li>
-        <li style="position: relative;">
-          <ButtonDropDown onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
-            🔖
-          </ButtonDropDown>
-          <DropDown isOpen={isOpen}>
+        <li style="margin: 0 auto; position: relative;">
+          <DropDownSwitch onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
+            <Date>{props.createdAt}</Date>
+          </DropDownSwitch>
+          <DropDownBody isOpen={isOpen}>
             <div>メニュー1</div>
             <div>メニュー2</div>
             <div>メニュー3</div>
             <Button onClick={props.handleDelete}>❌</Button>
-          </DropDown>
+          </DropDownBody>
         </li>
+        <li><Button>❤️</Button></li>
         <li>
           <Button onClick={props.handleSubmit}>
             { props.isSubmitting ? '⏳' : '✅'}
@@ -82,11 +76,11 @@ const HorizontalList = styled.ul`
   margin-block-start: 0;
   margin-block-end: 0;
 `;
-const DropDown = styled.div`
+const DropDownBody = styled.div`
   display: ${props => props.isOpen ? 'flex' : 'none'};
   position: absolute;
   top: 32px;
-  right: 8px;
+  left: -35%;
   z-index: 99;
   width: 50vw;
   max-width: 300px;
@@ -103,7 +97,7 @@ const Button = styled.div`
   width: 2.5em;
   text-align: center;
 `;
-const ButtonDropDown = styled(Button)`
+const DropDownSwitch = styled.div`
   &::after {
     ${props => props.isOpen ? `
       /* click anywhere to close */
