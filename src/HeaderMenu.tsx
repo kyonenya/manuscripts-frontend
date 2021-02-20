@@ -19,7 +19,7 @@ export const HeaderMenu = (props: {
           <Button><PlainLink href="?">↩️</PlainLink></Button>
         </li>
         <li><Button>－</Button></li>
-        <li style="margin: 0 auto; position: relative;">
+        <li style="margin: 0 auto">
           <DropDownSwitch onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
             <Date>{props.createdAt}</Date>
           </DropDownSwitch>
@@ -79,8 +79,11 @@ const HorizontalList = styled.ul`
 const DropDownBody = styled.div`
   display: ${props => props.isOpen ? 'flex' : 'none'};
   position: absolute;
-  top: 32px;
-  left: -35%;
+  top: 3em;
+  /* center */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   z-index: 99;
   width: 50vw;
   max-width: 300px;
