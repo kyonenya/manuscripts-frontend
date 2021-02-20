@@ -8,9 +8,9 @@ export const App = () => {
     <Fragment>
       {/* @ts-ignore */}
       <GlobalStyle />
-      <Container>
+
         <Manuscripts />
-      </Container>
+
     </Fragment>
   );
 };

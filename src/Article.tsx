@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import { HeaderMenu } from './HeaderMenu';
 import { Editor } from './Editor';
+import { Container } from './styled/Container';
 import { useSubmit } from './useSubmit';
 import { articlable, emptyArticle } from './types';
 
@@ -62,11 +63,13 @@ export const Article = (props: {
         isSubmitting={isSubmitting}
         handleDelete={handleDelete}
       />
-      <Editor
-        article={article}
-        isNew={props.isNew}
-        editorRef={editorRef}
-      />
+      <Container>
+        <Editor
+          article={article}
+          isNew={props.isNew}
+          editorRef={editorRef}
+        />
+      </Container>
     </Fragment>
   );
 };

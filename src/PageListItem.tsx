@@ -1,10 +1,10 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { Link } from 'wouter';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { PlainLink } from './styled/PlainLink';
 import { articlable } from './types';
 
 dayjs.locale('ja');
@@ -49,10 +49,6 @@ const Header = styled.header`
 const Footer = styled.footer`
   color: var(--monochrome-weighty);
   margin-top: 0.4em;
-`;
-const PlainLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
 `;
 const Summary = styled.div`
   line-height: 1.5;

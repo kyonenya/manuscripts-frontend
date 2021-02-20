@@ -14,7 +14,7 @@ export const Editor = (props: {
 }) => {
   useEffect(() => {
     // @ts-ignore
-    if (!props.isNew) props.editorRef.current.togglePreview();
+//    if (!props.isNew) props.editorRef.current.togglePreview();
   }, []);
 
   useEffect(() => {
