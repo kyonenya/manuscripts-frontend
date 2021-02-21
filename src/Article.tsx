@@ -43,7 +43,7 @@ export const Article = (props: {
     })
       .then(res => res.json())
       .then(data => console.log(data))
-      .then(_ => props.setModified)
+      .then(_ => props.setModified())
       // TODO リダイレクトの正しいやり方
       .then(_ => history.pushState({}, '', location.pathname + '?'))
       .catch(err => console.error(err));

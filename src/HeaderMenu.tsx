@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import styled from 'styled-components';
+import { WideContainer } from './styled/Container';
 import { PlainLink } from './styled/PlainLink';
 import { articlable } from './types';
 
@@ -14,35 +15,31 @@ export const HeaderMenu = (props: {
 
   return (
     <StyledHeaderMenu>
-      <HorizontalList>
-        <li>
-          <Button><PlainLink href="?">↩️</PlainLink></Button>
-        </li>
-        <li><Button>－</Button></li>
-        <li><Button>－</Button></li>
-        <li style="margin: 0 auto;">
-          <Date>
-            {props.createdAt}
-          </Date>
-        </li>
-        <li><Button>❤️</Button></li>
-        <li style="position: relative;">
-          <ButtonDropDown onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
-            🔖
-          </ButtonDropDown>
-          <DropDown isOpen={isOpen}>
-            <div>メニュー1</div>
-            <div>メニュー2</div>
-            <div>メニュー3</div>
-            <Button onClick={props.handleDelete}>❌</Button>
-          </DropDown>
-        </li>
-        <li>
-          <Button onClick={props.handleSubmit}>
-            { props.isSubmitting ? '⏳' : '✅'}
-          </Button>
-        </li>
-      </HorizontalList>
+      <WideContainer>
+        <HorizontalList>
+          <li>
+            <Button><PlainLink href="?">↩️</PlainLink></Button>
+          </li>
+          <li><Button>－</Button></li>
+          <li style="margin: 0 auto">
+            <DropDownSwitch onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
+              <Date>{props.createdAt}</Date>
+            </DropDownSwitch>
+            <DropDownBody isOpen={isOpen}>
+              <div>メニュー1</div>
+              <div>メニュー2</div>
+              <div>メニュー3</div>
+              <Button onClick={props.handleDelete}>❌</Button>
+            </DropDownBody>
+          </li>
+          <li><Button>❤️</Button></li>
+          <li>
+            <Button onClick={props.handleSubmit}>
+              { props.isSubmitting ? '⏳' : '✅'}
+            </Button>
+          </li>
+        </HorizontalList>
+      </WideContainer>
     </StyledHeaderMenu>
   );
 };
@@ -50,42 +47,50 @@ export const HeaderMenu = (props: {
 export const TopHeaderMenu = () => {
   return (
     <StyledHeaderMenu>
-      <HorizontalList>
-        <li><Button>⚙</Button></li>
-        <li style="margin: 0 auto;">
-          <SearchBox type="text" />
-        </li>
-        <li>
-          <Button><PlainLink href="?new=1">✏️</PlainLink></Button>
-        </li>
-      </HorizontalList>
+      <WideContainer>
+        <HorizontalList>
+          <li><Button>⚙</Button></li>
+          <li style="margin: 0 auto;">
+            <SearchBox type="text" />
+          </li>
+          <li>
+            <Button><PlainLink href="?new=1">✏️</PlainLink></Button>
+          </li>
+        </HorizontalList>
+      </WideContainer>
     </StyledHeaderMenu>
   );
 };
 
 const StyledHeaderMenu = styled.nav`
-  position: fixed;
+  position: sticky;
+  position: -webkit-sticky;
   top: 0;
   left: 0;
   width: 100vw;
   z-index: 99;
+  background: var(--monochrome-exlight);
+  box-shadow: 0px 0px 4px 0px rgba(60, 64, 67, 0.2);
+  margin-bottom: 1em;
 `;
 const HorizontalList = styled.ul`
   display: flex;
   justify-content: flex-end;
   align-items: center /* vertical */;
   list-style-type: none;
-  background: var(--monochrome-exlight);
   padding: 1em 0;
   /* reset */
   margin-block-start: 0;
   margin-block-end: 0;
 `;
-const DropDown = styled.div`
+const DropDownBody = styled.div`
   display: ${props => props.isOpen ? 'flex' : 'none'};
   position: absolute;
-  top: 32px;
-  right: 8px;
+  top: 3em;
+  /* center */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   z-index: 99;
   width: 50vw;
   max-width: 300px;
@@ -99,10 +104,11 @@ const DropDown = styled.div`
 `;
 const Button = styled.div`
   display: block;
-  width: 2.5em;
+  width: 10vw;
+  max-width: 3em;
   text-align: center;
 `;
-const ButtonDropDown = styled(Button)`
+const DropDownSwitch = styled.div`
   &::after {
     ${props => props.isOpen ? `
       /* click anywhere to close */
@@ -120,8 +126,12 @@ const ButtonDropDown = styled(Button)`
 `;
 const Date = styled.div`
   color: var(--monochrome-weighty);
-  width: 10em;
   text-align: center;
+  /* ellipsis */
+  width: 50vw;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 const SearchBox = styled.input`
 `;
