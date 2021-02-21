@@ -104,7 +104,7 @@ const DropDownBody = styled.div`
 `;
 const Button = styled.div`
   display: block;
-  width: 10vw;
+  width: 12vw;
   max-width: 3em;
   text-align: center;
 `;
