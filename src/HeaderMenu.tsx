@@ -20,15 +20,14 @@ export const HeaderMenu = (props: {
           <li>
             <Button><PlainLink href="?">↩️</PlainLink></Button>
           </li>
-          <li><Button>－</Button></li>
-          <li style="margin: 0 auto">
+          <li><Button>　</Button></li>
+          <li style={{margin: "0 auto"}}>
             <DropDownSwitch onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
               <Date>{props.createdAt}</Date>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" style={isOpen ? "transform: scale(1, -1);" : ""}><path d="M0 0h24v24H0z" fill="none"/><path fill="var(--monochrome-weighty)" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
             </DropDownSwitch>
             <DropDownBody isOpen={isOpen}>
-              <div>メニュー1</div>
-              <div>メニュー2</div>
-              <div>メニュー3</div>
+              <input type="text" id="tags" placeholder="tag1,tag2,..." />
               <Button onClick={props.handleDelete}>❌</Button>
             </DropDownBody>
           </li>
@@ -50,11 +49,14 @@ export const TopHeaderMenu = () => {
       <WideContainer>
         <HorizontalList>
           <li><Button>⚙</Button></li>
-          <li style="margin: 0 auto;">
-            <SearchBox type="text" />
+          <li style={{margin: '0 auto'}}>
+            <form method="get" action="">
+              <SearchBox type="search" placeholder="search..." />
+              <input type="submit" style={{display: 'none'}} />
+            </form>
           </li>
           <li>
-            <Button><PlainLink href="?new=1">✏️</PlainLink></Button>
+              <Button><PlainLink href="?new=1">✏️</PlainLink></Button>
           </li>
         </HorizontalList>
       </WideContainer>
@@ -78,7 +80,7 @@ const HorizontalList = styled.ul`
   justify-content: flex-end;
   align-items: center /* vertical */;
   list-style-type: none;
-  padding: 1em 0;
+  padding: 0.8em 0;
   /* reset */
   margin-block-start: 0;
   margin-block-end: 0;
@@ -104,11 +106,14 @@ const DropDownBody = styled.div`
 `;
 const Button = styled.div`
   display: block;
-  width: 10vw;
+  width: 12vw;
   max-width: 3em;
   text-align: center;
 `;
 const DropDownSwitch = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 50vw;
   &::after {
     ${props => props.isOpen ? `
       /* click anywhere to close */
@@ -128,10 +133,14 @@ const Date = styled.div`
   color: var(--monochrome-weighty);
   text-align: center;
   /* ellipsis */
-  width: 50vw;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
 const SearchBox = styled.input`
+  background: var(--monochrome-light);
+  border: none;
+  height: 2.5em;
+  width: 50vw;
+  -webkit-appearance: none /* reset safari */;
 `;

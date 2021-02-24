@@ -17,7 +17,7 @@ export const Container = styled.div`
 export const WideContainer = styled.div`
   margin: 0 auto;
   @media screen and (max-width: 559px) {
-    width: 100vw;
+    width: 97vw;
   }
   @media screen and (min-width: 560px) {
     width: 85vw;
