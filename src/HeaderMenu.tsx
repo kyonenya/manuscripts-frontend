@@ -20,10 +20,11 @@ export const HeaderMenu = (props: {
           <li>
             <Button><PlainLink href="?">↩️</PlainLink></Button>
           </li>
-          <li><Button>－</Button></li>
+          <li><Button>　</Button></li>
           <li style="margin: 0 auto">
             <DropDownSwitch onClick={() => setIsOpen(prev => !prev)} isOpen={isOpen}>
               <Date>{props.createdAt}</Date>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" style={isOpen ? "transform: scale(1, -1);" : ""}><path d="M0 0h24v24H0z" fill="none"/><path fill="var(--monochrome-weighty)" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
             </DropDownSwitch>
             <DropDownBody isOpen={isOpen}>
               <div>メニュー1</div>
@@ -109,6 +110,9 @@ const Button = styled.div`
   text-align: center;
 `;
 const DropDownSwitch = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 50vw;
   &::after {
     ${props => props.isOpen ? `
       /* click anywhere to close */
@@ -128,7 +132,6 @@ const Date = styled.div`
   color: var(--monochrome-weighty);
   text-align: center;
   /* ellipsis */
-  width: 50vw;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
