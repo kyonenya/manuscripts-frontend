@@ -53,7 +53,7 @@ export const TopHeaderMenu = () => {
           <li><Button>⚙</Button></li>
           <li style={{margin: '0 auto'}}>
             <form method="get" action="">
-              <SearchBox type="search" />
+              <SearchBox type="search" placeholder="search" />
               <input type="submit" style={{display: 'none'}} />
             </form>
           </li>
@@ -82,7 +82,7 @@ const HorizontalList = styled.ul`
   justify-content: flex-end;
   align-items: center /* vertical */;
   list-style-type: none;
-  padding: 1em 0;
+  padding: 0.8em 0;
   /* reset */
   margin-block-start: 0;
   margin-block-end: 0;
@@ -140,4 +140,9 @@ const Date = styled.div`
   text-overflow: ellipsis;
 `;
 const SearchBox = styled.input`
+  background: var(--monochrome-light);
+  border: none;
+  height: 2.5em;
+  width: 50vw;
+  -webkit-appearance: none /* reset safari */;
 `;
