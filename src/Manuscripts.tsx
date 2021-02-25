@@ -13,7 +13,7 @@ export const Manuscripts = () => {
   const isNew = !!useSearchParam('new');
 
   useEffect(() => {
-    const limitNum = 10;
+    const limitNum = 7;
     fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`)
       .then(response => response.json())
       .then(articles => setArticles(articles))
