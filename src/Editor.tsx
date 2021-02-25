@@ -40,9 +40,7 @@ export const Editor = (props: {
 };
 
 const EditorWrapper = styled.div`
-  font-size: 16px;
-  line-height: 1.65;
-  text-align: justify /* 均等割付 */;
+  text-align: justify;
 
   /* override */
   .cm-s-easymde .cm-header-1,
