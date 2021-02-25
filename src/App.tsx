@@ -49,7 +49,14 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Helvetica Neue", Verdana, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
     color: var(--text-color);
     background: var(--background-color);
-    text-align: justify;
     margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  @media screen and (min-width: 560px) {
+    body {
+      font-size: 18px;
+      line-height: 1.7;
+    }
   }
 `;
