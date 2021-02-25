@@ -40,7 +40,9 @@ export const Editor = (props: {
 };
 
 const EditorWrapper = styled.div`
-  text-align: justify;
+  @media screen and (max-width: 559px) {
+    text-align: justify;
+  }
 
   /* override */
   .cm-s-easymde .cm-header-1,
