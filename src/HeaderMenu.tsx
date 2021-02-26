@@ -133,6 +133,7 @@ const Date = styled.div`
   color: var(--monochrome-weighty);
   text-align: center;
   /* ellipsis */
+  width: 50vw;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
