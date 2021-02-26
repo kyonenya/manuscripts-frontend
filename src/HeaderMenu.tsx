@@ -114,7 +114,7 @@ const Button = styled.div`
 const DropDownSwitch = styled.div`
   display: flex;
   justify-content: center;
-  width: 60vw;
+  width: 50vw;
   cursor: pointer;
   &::after {
     ${props => props.isOpen ? `
@@ -135,7 +135,6 @@ const Date = styled.div`
   color: var(--monochrome-weighty);
   text-align: center;
   /* ellipsis */
-  width: 50vw;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
