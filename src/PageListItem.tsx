@@ -52,4 +52,5 @@ const Footer = styled.footer`
 `;
 const Summary = styled.div`
   line-height: 1.5;
+  text-align: justify;
 `;

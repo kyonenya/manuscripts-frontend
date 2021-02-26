@@ -109,11 +109,13 @@ const Button = styled.div`
   width: 12vw;
   max-width: 3em;
   text-align: center;
+  cursor: pointer;
 `;
 const DropDownSwitch = styled.div`
   display: flex;
   justify-content: center;
-  width: 50vw;
+  width: 60vw;
+  cursor: pointer;
   &::after {
     ${props => props.isOpen ? `
       /* click anywhere to close */
