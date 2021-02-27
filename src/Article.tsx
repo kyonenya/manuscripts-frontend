@@ -34,18 +34,16 @@ export const Article = (props: {
   }, []);
 
   const handleSubmit = () => {
-    const uuid = props.isNew ? uuidv4().replace(/-/g, '') : article.uuid;
     submit({
       text: editorRef.current.value(),
       tags: ['dummyTag1', 'dummyTag2'],
-      uuid,
+      uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
       starred: isStarred,
     }, props.isNew);
     props.setModified();
     if (props.isNew) {
       localStorage.setItem('smde_new', '');
-      console.log(`${location.pathname}?uuid=${uuid}`);
-      history.pushState({}, '', `${location.pathname}?uuid=${uuid}`);
+      history.pushState({}, '', location.pathname + '?');
     };
   };
 
