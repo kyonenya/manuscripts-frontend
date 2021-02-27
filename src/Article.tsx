@@ -15,14 +15,22 @@ export const Article = (props: {
   setModified: () => void,
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
+  const [isStarred, setIsStarred] = useState(false);
   const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
-    if (props.initArticle) return setArticle(props.initArticle);
+    if (props.initArticle) {
+      setArticle(props.initArticle);
+      setIsStarred(props.initArticle.starred);
+      return;
+    };
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`)
       .then(response => response.json())
-      .then(article => setArticle(article));
+      .then(article => {
+        setArticle(article);
+        setIsStarred(article.starred);
+      });
   }, []);
 
   const handleSubmit = () => {
@@ -30,7 +38,7 @@ export const Article = (props: {
       text: editorRef.current.value(),
       tags: ['dummyTag1', 'dummyTag2'],
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
-      starred: false,
+      starred: isStarred,
     }, props.isNew);
     props.setModified();
     if (props.isNew) localStorage.setItem('smde_new', '');
@@ -62,6 +70,8 @@ export const Article = (props: {
         handleSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         handleDelete={handleDelete}
+        toggleStarred={() => setIsStarred(prev => !prev)}
+        isStarred={isStarred}
       />
       <Container>
         <Editor

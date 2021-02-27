@@ -10,6 +10,8 @@ export const HeaderMenu = (props: {
   handleSubmit: () => void,
   isSubmitting: boolean,
   handleDelete: () => void,
+  toggleStarred: () => void,
+  isStarred: boolean,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,7 +33,10 @@ export const HeaderMenu = (props: {
               <Button onClick={props.handleDelete}>❌</Button>
             </DropDownBody>
           </li>
-          <li><Button>❤️</Button></li>
+          <li>
+            <Button onClick={props.toggleStarred}>
+              {props.isStarred ? '❤️' : '❤︎'}
+            </Button></li>
           <li>
             <Button onClick={props.handleSubmit}>
               { props.isSubmitting ? '⏳' : '✅'}
