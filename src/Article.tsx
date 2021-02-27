@@ -34,14 +34,19 @@ export const Article = (props: {
   }, []);
 
   const handleSubmit = () => {
+    const uuid = props.isNew ? uuidv4().replace(/-/g, '') : article.uuid;
     submit({
       text: editorRef.current.value(),
       tags: ['dummyTag1', 'dummyTag2'],
-      uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
+      uuid,
       starred: isStarred,
     }, props.isNew);
     props.setModified();
-    if (props.isNew) localStorage.setItem('smde_new', '');
+    if (props.isNew) {
+      localStorage.setItem('smde_new', '');
+      console.log(`${location.pathname}?uuid=${uuid}`);
+      history.pushState({}, '', `${location.pathname}?uuid=${uuid}`);
+    };
   };
 
   const handleDelete = () => {
@@ -83,6 +88,3 @@ export const Article = (props: {
     </Fragment>
   );
 };
-
-//7bd2954f3a5c41f09e440e1f9e373f13
-//034392a0ef2f46e4842e249c9bf6dfc5
