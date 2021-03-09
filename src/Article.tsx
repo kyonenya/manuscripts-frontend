@@ -16,6 +16,7 @@ export const Article = (props: {
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
   const [isStarred, setIsStarred] = useState(false);
+  const [tagCsv, setTagCsv] = useState('');
   const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
@@ -23,6 +24,7 @@ export const Article = (props: {
     if (props.initArticle) {
       setArticle(props.initArticle);
       setIsStarred(props.initArticle.starred);
+      setTagCsv(props.initArticle.tags.join(','));
       return;
     };
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`)
@@ -30,13 +32,14 @@ export const Article = (props: {
       .then(article => {
         setArticle(article);
         setIsStarred(article.starred);
+        setTagCsv(article.tags.join(','));
       });
   }, []);
 
   const handleSubmit = () => {
     submit({
       text: editorRef.current.value(),
-      tags: ['dummyTag1', 'dummyTag2'],
+      tags: tagCsv.split(','), 
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
       starred: isStarred,
     }, props.isNew);
@@ -75,6 +78,8 @@ export const Article = (props: {
         handleDelete={handleDelete}
         toggleStarred={() => setIsStarred(prev => !prev)}
         isStarred={isStarred}
+        tagCsv={tagCsv}
+        setTagCsv={setTagCsv}
       />
       <Container>
         <Editor
