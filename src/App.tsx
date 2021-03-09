@@ -1,6 +1,5 @@
 import { h, Fragment } from 'preact';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Manuscripts } from './Manuscripts';
 import { Auth } from './Auth';
 import { Container } from './styled/Container';
 
