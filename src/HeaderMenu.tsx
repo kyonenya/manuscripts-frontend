@@ -10,6 +10,10 @@ export const HeaderMenu = (props: {
   handleSubmit: () => void,
   isSubmitting: boolean,
   handleDelete: () => void,
+  toggleStarred: () => void,
+  isStarred: boolean,
+  tagCsv: string,
+  setTagCsv: (s: string) => void,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,11 +31,17 @@ export const HeaderMenu = (props: {
               <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" style={isOpen ? "transform: scale(1, -1);" : ""}><path d="M0 0h24v24H0z" fill="none"/><path fill="var(--monochrome-weighty)" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
             </DropDownSwitch>
             <DropDownBody isOpen={isOpen}>
-              <input type="text" id="tags" placeholder="tag1,tag2,..." />
+              <input type="text" placeholder="tag1,tag2,..." id="tags"
+                value={props.tagCsv} 
+                onChange={(e) => props.setTagCsv(e.currentTarget.value)}
+              />
               <Button onClick={props.handleDelete}>❌</Button>
             </DropDownBody>
           </li>
-          <li><Button>❤️</Button></li>
+          <li>
+            <Button onClick={props.toggleStarred}>
+              {props.isStarred ? '❤️' : '❤︎'}
+            </Button></li>
           <li>
             <Button onClick={props.handleSubmit}>
               { props.isSubmitting ? '⏳' : '✅'}

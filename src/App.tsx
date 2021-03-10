@@ -1,6 +1,6 @@
 import { h, Fragment } from 'preact';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Manuscripts } from './Manuscripts';
+import { Auth } from './Auth';
 import { Container } from './styled/Container';
 
 export const App = () => {
@@ -8,9 +8,8 @@ export const App = () => {
     <Fragment>
       {/* @ts-ignore */}
       <GlobalStyle />
-
-        <Manuscripts />
-
+        {/* <Manuscripts /> */}
+        <Auth />
     </Fragment>
   );
 };

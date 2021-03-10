@@ -15,25 +15,39 @@ export const Article = (props: {
   setModified: () => void,
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
+  const [isStarred, setIsStarred] = useState(false);
+  const [tagCsv, setTagCsv] = useState('');
   const { submit, isSubmitting } = useSubmit();
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
-    if (props.initArticle) return setArticle(props.initArticle);
+    if (props.initArticle) {
+      setArticle(props.initArticle);
+      setIsStarred(props.initArticle.starred);
+      setTagCsv(props.initArticle.tags.join(','));
+      return;
+    };
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`)
       .then(response => response.json())
-      .then(article => setArticle(article));
+      .then(article => {
+        setArticle(article);
+        setIsStarred(article.starred);
+        setTagCsv(article.tags.join(','));
+      });
   }, []);
 
   const handleSubmit = () => {
     submit({
       text: editorRef.current.value(),
-      tags: ['dummyTag1', 'dummyTag2'],
+      tags: tagCsv.split(','), 
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
-      starred: false,
+      starred: isStarred,
     }, props.isNew);
     props.setModified();
-    if (props.isNew) localStorage.setItem('smde_new', '');
+    if (props.isNew) {
+      localStorage.setItem('smde_new', '');
+      history.pushState({}, '', location.pathname + '?');
+    };
   };
 
   const handleDelete = () => {
@@ -62,6 +76,10 @@ export const Article = (props: {
         handleSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         handleDelete={handleDelete}
+        toggleStarred={() => setIsStarred(prev => !prev)}
+        isStarred={isStarred}
+        tagCsv={tagCsv}
+        setTagCsv={setTagCsv}
       />
       <Container>
         <Editor
@@ -73,6 +91,3 @@ export const Article = (props: {
     </Fragment>
   );
 };
-
-//7bd2954f3a5c41f09e440e1f9e373f13
-//034392a0ef2f46e4842e249c9bf6dfc5
