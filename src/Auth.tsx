@@ -1,17 +1,13 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
+import { useState } from 'preact/hooks';
 import firebase from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Manuscripts } from './Manuscripts';
 
-const login = () => {
-  firebase.auth().signInWithEmailAndPassword(process.env.FIREBASE_EMAIL!, process.env.FIREBASE_PASSWORD!);
-};
-const logout = () => {
-  firebase.auth().signOut();
-};
-
 export const Auth = () => {
   const [user, loading, error] = useAuthState(firebase.auth());
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   if (loading) {
     return (
@@ -29,12 +25,28 @@ export const Auth = () => {
   }
   if (user) {
     return (
-      <div>
+      <Fragment>
         <Manuscripts />
         <p>Current User: {user.email}</p>
-        <button onClick={logout}>Log out</button>
-      </div>
+        <button
+          onClick={() => firebase.auth().signOut()}
+        >
+          Log out
+        </button>
+      </Fragment>
     );
   }
-  return <button onClick={login}>Log in</button>;
+  return (
+    <Fragment>
+      <input type="email" placeholder="email..."
+        value={email}
+        onChange={(e) => setEmail(e.currentTarget.value)}
+      />
+      <input type="password" placeholder="password..."
+        value={password}
+        onChange={(e) => setPassword(e.currentTarget.value)}
+      />
+      <button onClick={() => firebase.auth().signInWithEmailAndPassword(email, password)}>Log in</button>
+    </Fragment>
+  );
 };
