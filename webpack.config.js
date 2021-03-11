@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -33,11 +32,5 @@ module.exports = {
       'react-dom': 'preact/compat',
     },
   },
-  plugins: [
-    new webpack.EnvironmentPlugin([
-      'FIREBASE_API_KEY',
-      'FIREBASE_API_KEY',
-      'FIREBASE_PROJECT_ID',
-    ]),
-  ],
+  plugins: [],
 };
