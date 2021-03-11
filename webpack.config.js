@@ -1,5 +1,4 @@
 const path = require('path');
-// const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'production',
@@ -34,6 +33,10 @@ module.exports = {
     },
   },
   plugins: [
-    // new Dotenv(),
+    new webpack.EnvironmentPlugin([
+      'FIREBASE_API_KEY',
+      'FIREBASE_API_KEY',
+      'FIREBASE_PROJECT_ID',
+    ]),
   ],
-}
+};
