@@ -1,5 +1,4 @@
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -38,7 +37,5 @@ module.exports = {
       'react-dom': 'preact/compat',
     },
   },
-  plugins: [
-    new Dotenv(),
-  ],
-}
+  plugins: [],
+};
