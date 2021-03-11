@@ -9,6 +9,15 @@ export const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleLogin = async () => {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    firebase.auth().currentUser!.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      console.log(idToken);
+    }).catch(function(err) {
+      console.error(err);
+    });
+  };
+
   if (loading) {
     return (
       <div>
@@ -24,6 +33,7 @@ export const Auth = () => {
     );
   }
   if (user) {
+    console.log(user);
     return (
       <Fragment>
         <Manuscripts />
@@ -46,7 +56,7 @@ export const Auth = () => {
         value={password}
         onChange={(e) => setPassword(e.currentTarget.value)}
       />
-      <button onClick={() => firebase.auth().signInWithEmailAndPassword(email, password)}>Log in</button>
+      <button onClick={handleLogin}>Log in</button>
     </Fragment>
   );
 };
