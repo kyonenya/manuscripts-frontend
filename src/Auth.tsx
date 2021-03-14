@@ -9,6 +9,9 @@ export const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const handleLogin = (): Promise<firebase.auth.UserCredential> => firebase.auth().signInWithEmailAndPassword(email, password);
+  const getIdToken = (): Promise<string> => firebase.auth().currentUser!.getIdToken(/* forceRefresh */ true)
+
   if (loading) {
     return (
       <div>
@@ -23,30 +26,32 @@ export const Auth = () => {
       </div>
     );
   }
-  if (user) {
+  if (!user) {
     return (
       <Fragment>
-        <Manuscripts />
-        <p>Current User: {user.email}</p>
-        <button
-          onClick={() => firebase.auth().signOut()}
-        >
-          Log out
-        </button>
+        <input type="email" placeholder="email..."
+          value={email}
+          onChange={(e) => setEmail(e.currentTarget.value)}
+        />
+        <input type="password" placeholder="password..."
+          value={password}
+          onChange={(e) => setPassword(e.currentTarget.value)}
+        />
+        <button onClick={handleLogin}>Log in</button>
       </Fragment>
     );
   }
   return (
     <Fragment>
-      <input type="email" placeholder="email..."
-        value={email}
-        onChange={(e) => setEmail(e.currentTarget.value)}
+      <Manuscripts
+        getIdToken={getIdToken}
       />
-      <input type="password" placeholder="password..."
-        value={password}
-        onChange={(e) => setPassword(e.currentTarget.value)}
-      />
-      <button onClick={() => firebase.auth().signInWithEmailAndPassword(email, password)}>Log in</button>
+      <p>Current User: {user.email}</p>
+      <button
+        onClick={() => firebase.auth().signOut()}
+      >
+        Log out
+      </button>
     </Fragment>
   );
 };

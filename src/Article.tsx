@@ -33,7 +33,8 @@ export const Article = (props: {
         setArticle(article);
         setIsStarred(article.starred);
         setTagCsv(article.tags.join(','));
-      });
+      })
+      .catch(err => console.error(err));
   }, []);
 
   const handleSubmit = () => {
