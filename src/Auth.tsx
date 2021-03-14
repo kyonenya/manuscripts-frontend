@@ -9,15 +9,8 @@ export const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
-    firebase.auth().currentUser!.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-      console.log(idToken);
-    }).catch(function(err) {
-      console.error(err);
-    });
-  };
-
+  const handleLogin = async () => await firebase.auth().signInWithEmailAndPassword(email, password);
+  
   if (loading) {
     return (
       <div>
@@ -33,10 +26,11 @@ export const Auth = () => {
     );
   }
   if (user) {
-    console.log(user);
     return (
       <Fragment>
-        <Manuscripts />
+        <Manuscripts
+          getIdToken={() => firebase.auth().currentUser!.getIdToken(/* forceRefresh */ true)}
+        />
         <p>Current User: {user.email}</p>
         <button
           onClick={() => firebase.auth().signOut()}

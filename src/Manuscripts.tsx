@@ -5,7 +5,9 @@ import { Article } from './Article';
 import { PageList } from './PageList';
 import { articlable } from './types';
 
-export const Manuscripts = () => {
+export const Manuscripts = (props: {
+  getIdToken: () => Promise<string>;
+}) => {
   const [articles, setArticles] = useState<articlable[]>([]);
   const [isModified, setIsModified] = useState(false);
 
@@ -13,11 +15,21 @@ export const Manuscripts = () => {
   const isNew = !!useSearchParam('new');
 
   useEffect(() => {
-    const limitNum = 7;
-    fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`)
-      .then(response => response.json())
-      .then(articles => setArticles(articles))
-      .then(_ => setIsModified(false));
+    ;(async() => {
+      const limitNum = 7;
+      const idToken = await props.getIdToken();
+      fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer: ${idToken}`,
+        },
+      })
+        .then(response => response.json())
+        .then(articles => setArticles(articles))
+        .then(_ => setIsModified(false))
+        .catch(err => console.error(err));
+    })();
   }, [isModified]);
 
   return (
