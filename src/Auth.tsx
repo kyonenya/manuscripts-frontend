@@ -14,10 +14,8 @@ export const Auth = () => {
     if (!user) return;
     user.getIdToken(true).then((idToken) => setIdToken(idToken));
   }, [user]);
-  console.log(idToken);
 
   const handleLogin = (): Promise<firebase.auth.UserCredential> => firebase.auth().signInWithEmailAndPassword(email, password);
-  const getIdToken = (): Promise<string> => firebase.auth().currentUser!.getIdToken(/* forceRefresh */ true)
 
   if (loading) {
     return (
@@ -51,7 +49,7 @@ export const Auth = () => {
   return (
     <Fragment>
       <Manuscripts
-        getIdToken={getIdToken}
+        idToken={idToken}
       />
       <p>Current User: {user.email}</p>
       <button
