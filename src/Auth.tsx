@@ -1,5 +1,5 @@
 import { h, Fragment } from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import firebase from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Manuscripts } from './Manuscripts';
@@ -8,6 +8,13 @@ export const Auth = () => {
   const [user, loading, error] = useAuthState(firebase.auth());
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [idToken, setIdToken] = useState('');
+
+  useEffect(() => {
+    if (!user) return;
+    user.getIdToken(true).then((idToken) => setIdToken(idToken));
+  }, [user]);
+  console.log(idToken);
 
   const handleLogin = (): Promise<firebase.auth.UserCredential> => firebase.auth().signInWithEmailAndPassword(email, password);
   const getIdToken = (): Promise<string> => firebase.auth().currentUser!.getIdToken(/* forceRefresh */ true)
