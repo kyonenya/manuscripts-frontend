@@ -19,6 +19,4 @@ app
   ;
 
 // Register app and middleware. Required for better performance when running from play.js
-if (pjs) {
-  pjs.register(app, middleware);
-}
+try { pjs.register(app, middleware); } catch (error) { }
