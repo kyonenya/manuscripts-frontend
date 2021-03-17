@@ -14,6 +14,7 @@ export const HeaderMenu = (props: {
   isStarred: boolean,
   tagCsv: string,
   setTagCsv: (s: string) => void,
+  idToken: string,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 

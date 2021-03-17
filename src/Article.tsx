@@ -13,6 +13,7 @@ export const Article = (props: {
   uuid: string,
   isNew: boolean,
   setModified: () => void,
+  idToken: string,
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
   const [isStarred, setIsStarred] = useState(false);
@@ -27,7 +28,13 @@ export const Article = (props: {
       setTagCsv(props.initArticle.tags.join(','));
       return;
     };
-    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`)
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer: ${props.idToken}`,
+      },
+    })
       .then(response => response.json())
       .then(article => {
         setArticle(article);
@@ -43,7 +50,7 @@ export const Article = (props: {
       tags: tagCsv.split(','), 
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
       starred: isStarred,
-    }, props.isNew);
+    }, props.isNew, props.idToken);
     props.setModified();
     if (props.isNew) {
       localStorage.setItem('smde_new', '');
@@ -54,7 +61,10 @@ export const Article = (props: {
   const handleDelete = () => {
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
       method: 'DELETE',
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer: ${props.idToken}`,
+      },
     })
       .then(res => res.json())
       .then(data => console.log(data))
@@ -81,6 +91,7 @@ export const Article = (props: {
         isStarred={isStarred}
         tagCsv={tagCsv}
         setTagCsv={setTagCsv}
+        idToken={props.idToken}
       />
       <Container>
         <Editor

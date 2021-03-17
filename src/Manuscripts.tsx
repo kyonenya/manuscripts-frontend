@@ -37,6 +37,7 @@ export const Manuscripts = (props: {
         uuid={uuid ?? ''}
         isNew={isNew}
         setModified={() => setIsModified(true)}
+        idToken={props.idToken}
       />
      : <PageList articles={articles} />
   );
