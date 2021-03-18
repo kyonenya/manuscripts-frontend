@@ -13,6 +13,7 @@ export const Article = (props: {
   uuid: string,
   isNew: boolean,
   setModified: () => void,
+  idToken: string,
 }) => {
   const [article, setArticle] = useState<articlable>(emptyArticle);
   const [isStarred, setIsStarred] = useState(false);
@@ -21,29 +22,41 @@ export const Article = (props: {
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
+    if (!props.idToken) return;
     if (props.initArticle) {
       setArticle(props.initArticle);
       setIsStarred(props.initArticle.starred);
-      setTagCsv(props.initArticle.tags.join(','));
+      if (props.initArticle.tags) {
+        setTagCsv(props.initArticle.tags.join(','));
+      }
       return;
     };
-    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`)
+    fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer: ${props.idToken}`,
+      },
+    })
       .then(response => response.json())
       .then(article => {
         setArticle(article);
         setIsStarred(article.starred);
-        setTagCsv(article.tags.join(','));
+        if (article.tags) {
+          setTagCsv(article.tags.join(','));
+        }
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [props.idToken]);
 
   const handleSubmit = () => {
+    if (!props.idToken) return;
     submit({
       text: editorRef.current.value(),
-      tags: tagCsv.split(','), 
+      tags: tagCsv ? tagCsv.split(',') : [''],
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
       starred: isStarred,
-    }, props.isNew);
+    }, props.isNew, props.idToken);
     props.setModified();
     if (props.isNew) {
       localStorage.setItem('smde_new', '');
@@ -52,9 +65,13 @@ export const Article = (props: {
   };
 
   const handleDelete = () => {
+    if (!props.idToken) return;
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
       method: 'DELETE',
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer: ${props.idToken}`,
+      },
     })
       .then(res => res.json())
       .then(data => console.log(data))
@@ -81,6 +98,7 @@ export const Article = (props: {
         isStarred={isStarred}
         tagCsv={tagCsv}
         setTagCsv={setTagCsv}
+        idToken={props.idToken}
       />
       <Container>
         <Editor

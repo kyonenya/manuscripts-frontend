@@ -6,7 +6,7 @@ import { PageList } from './PageList';
 import { articlable } from './types';
 
 export const Manuscripts = (props: {
-  getIdToken: () => Promise<string>;
+  idToken: string;
 }) => {
   const [articles, setArticles] = useState<articlable[]>([]);
   const [isModified, setIsModified] = useState(false);
@@ -15,22 +15,20 @@ export const Manuscripts = (props: {
   const isNew = !!useSearchParam('new');
 
   useEffect(() => {
-    ;(async() => {
-      const limitNum = 7;
-      const idToken = await props.getIdToken();
-      fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`, {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-          Authorization: `Bearer: ${idToken}`,
-        },
-      })
-        .then(response => response.json())
-        .then(articles => setArticles(articles))
-        .then(_ => setIsModified(false))
-        .catch(err => console.error(err));
-    })();
-  }, [isModified]);
+    if (!props.idToken) return;
+    const limitNum = 7;
+    fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer: ${props.idToken}`,
+      },
+    })
+      .then(response => response.json())
+      .then(articles => setArticles(articles))
+      .then(_ => setIsModified(false))
+      .catch(err => console.error(err));
+  }, [isModified, props.idToken]);
 
   return (
     uuid || isNew
@@ -39,6 +37,7 @@ export const Manuscripts = (props: {
         uuid={uuid ?? ''}
         isNew={isNew}
         setModified={() => setIsModified(true)}
+        idToken={props.idToken}
       />
      : <PageList articles={articles} />
   );
