@@ -26,7 +26,9 @@ export const Article = (props: {
     if (props.initArticle) {
       setArticle(props.initArticle);
       setIsStarred(props.initArticle.starred);
-      setTagCsv(props.initArticle.tags.join(','));
+      if (props.initArticle.tags) {
+        setTagCsv(props.initArticle.tags.join(','));
+      }
       return;
     };
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
@@ -40,7 +42,9 @@ export const Article = (props: {
       .then(article => {
         setArticle(article);
         setIsStarred(article.starred);
-        setTagCsv(article.tags.join(','));
+        if (article.tags) {
+          setTagCsv(article.tags.join(','));
+        }
       })
       .catch(err => console.error(err));
   }, [props.idToken]);
@@ -49,7 +53,7 @@ export const Article = (props: {
     if (!props.idToken) return;
     submit({
       text: editorRef.current.value(),
-      tags: tagCsv.split(','), 
+      tags: tagCsv ? tagCsv.split(',') : [''],
       uuid: props.isNew ? uuidv4().replace(/-/g, '') : article.uuid,
       starred: isStarred,
     }, props.isNew, props.idToken);
