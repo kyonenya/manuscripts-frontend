@@ -22,6 +22,7 @@ export const Article = (props: {
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
+    if (!props.idToken) return;
     if (props.initArticle) {
       setArticle(props.initArticle);
       setIsStarred(props.initArticle.starred);
@@ -42,9 +43,10 @@ export const Article = (props: {
         setTagCsv(article.tags.join(','));
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [props.idToken]);
 
   const handleSubmit = () => {
+    if (!props.idToken) return;
     submit({
       text: editorRef.current.value(),
       tags: tagCsv.split(','), 
@@ -59,6 +61,7 @@ export const Article = (props: {
   };
 
   const handleDelete = () => {
+    if (!props.idToken) return;
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
       method: 'DELETE',
       headers: {
