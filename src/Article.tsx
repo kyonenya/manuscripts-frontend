@@ -22,6 +22,7 @@ export const Article = (props: {
   const editorRef: Ref<EasyMDE> = useRef();
 
   useEffect(() => {
+    if (!props.uuid) return;
     if (!props.idToken) return;
     if (props.initArticle) {
       setArticle(props.initArticle);
@@ -65,6 +66,7 @@ export const Article = (props: {
   };
 
   const handleDelete = () => {
+    if (!props.uuid) return;
     if (!props.idToken) return;
     fetch(`https://manuscripts.herokuapp.com/api/entries/${props.uuid}`, {
       method: 'DELETE',
@@ -99,6 +101,7 @@ export const Article = (props: {
         tagCsv={tagCsv}
         setTagCsv={setTagCsv}
         idToken={props.idToken}
+        isNew={props.isNew}
       />
       <Container>
         <Editor
