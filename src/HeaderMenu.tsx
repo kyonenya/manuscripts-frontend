@@ -15,6 +15,7 @@ export const HeaderMenu = (props: {
   tagCsv: string,
   setTagCsv: (s: string) => void,
   idToken: string,
+  isNew: boolean,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,7 +37,9 @@ export const HeaderMenu = (props: {
                 value={props.tagCsv} 
                 onChange={(e) => props.setTagCsv(e.currentTarget.value)}
               />
-              <Button onClick={props.handleDelete}>❌</Button>
+              <Button onClick={props.handleDelete} disabled={props.isNew}>
+                {!props.isNew ? '❌' : ''}
+              </Button>
             </DropDownBody>
           </li>
           <li>
