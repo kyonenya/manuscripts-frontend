@@ -16,7 +16,7 @@ export const Manuscripts = (props: {
 
   useEffect(() => {
     if (!props.idToken) return;
-    const limitNum = 7;
+    const limitNum = 100;
     fetch(`https://manuscripts.herokuapp.com/api/entries?limit=${limitNum}`, {
       method: 'GET',
       headers: {
